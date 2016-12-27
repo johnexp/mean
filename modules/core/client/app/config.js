@@ -6,7 +6,7 @@
   var service = {
     applicationEnvironment: window.env,
     applicationModuleName: applicationModuleName,
-    applicationModuleVendorDependencies: ['ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ngFileUpload', 'ui-notification'],
+    applicationModuleVendorDependencies: ['ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ngFileUpload', 'ui-notification', 'pascalprecht.translate'],
     registerModule: registerModule
   };
 
@@ -33,4 +33,22 @@
       positionY: 'bottom'
     });
   });
+
+  angular.module('pascalprecht.translate').config(['$translateProvider', '$translatePartialLoaderProvider', function ($translateProvider, $translatePartialLoaderProvider) {
+    $translatePartialLoaderProvider.addPart('home');
+    $translateProvider.useLoader('$translatePartialLoader', {
+      urlTemplate: '/modules/core/client/i18n/{lang}.json'
+    });
+
+    // Definimos o idioma padrão
+    $translateProvider.preferredLanguage('pt_BR');
+    $translateProvider.forceAsyncReload(true);
+    // Se você preferir que o idioma padrão seja detectado pelo idioma do browser
+    // use as linhas abaixo:
+    //
+    // $translateProvider
+    //  .uniformLanguageTag()
+    //  .determinePreferredLanguage();
+  }]);
+
 }(window));

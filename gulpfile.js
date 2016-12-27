@@ -38,6 +38,10 @@ gulp.task('env:test', function () {
 // Set NODE_ENV to 'development'
 gulp.task('env:dev', function () {
   process.env.NODE_ENV = 'development';
+  process.env.MAILER_FROM = 'jonathan91j@gmail.com';
+  process.env.MAILER_SERVICE_PROVIDER = 'gmail';
+  process.env.MAILER_EMAIL_ID = 'jonathan91j@gmail.com';
+  process.env.MAILER_PASSWORD = '16518138Gg';
 });
 
 // Set NODE_ENV to 'production'

@@ -21,6 +21,13 @@
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right" ng-hide="vm.authentication.user">
+      <li class="dropdown" ng-class="dropdown" ng-switch="dropdown" ui-sref-active="active" uib-dropdown="true">
+        <a uib-dropdown-toggle class="dropdown-toggle" role="button">Lang <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a ng-click="vm.changeLanguage('en_US')">English</a></li>
+          <li><a ng-click="vm.changeLanguage('pt_BR')">Português</a></li>
+        </ul>
+      </li>
       <li ui-sref-active="active">
         <a ui-sref="authentication.signup">Sign Up</a>
       </li>
