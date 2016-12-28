@@ -1,4 +1,9 @@
 {
 	"allo_allo": "Olá, Olá!",
-	"always_a_pleasure": "Its always a pleasure to watch Pulp Fiction."
+	"always_a_pleasure": "Its always a pleasure to watch Pulp Fiction.",
+  "character-types": {
+    "title": "Tipos de Personagens",
+    "list": "Listar",
+    "create": "Cadastrar"
+  }
 }

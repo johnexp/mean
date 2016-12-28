@@ -35,13 +35,13 @@
   });
 
   angular.module('pascalprecht.translate').config(['$translateProvider', '$translatePartialLoaderProvider', function ($translateProvider, $translatePartialLoaderProvider) {
-    $translatePartialLoaderProvider.addPart('home');
+    $translatePartialLoaderProvider.addPart('core');
     $translateProvider.useLoader('$translatePartialLoader', {
-      urlTemplate: '/modules/core/client/i18n/{lang}.json'
+      urlTemplate: '/modules/{part}/client/i18n/{lang}.json'
     });
 
     // Definimos o idioma padrão
-    $translateProvider.preferredLanguage('pt_BR');
+    $translateProvider.preferredLanguage('en_US');
     $translateProvider.forceAsyncReload(true);
     // Se você preferir que o idioma padrão seja detectado pelo idioma do browser
     // use as linhas abaixo:

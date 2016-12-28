@@ -14,6 +14,7 @@
     vm.authentication = Authentication;
     vm.isCollapsed = false;
     vm.menu = menuService.getMenu('topbar');
+    vm.sidebar = menuService.getMenu('sidebar');
     vm.changeLanguage = changeLanguage;
 
     $scope.$on('$stateChangeSuccess', stateChangeSuccess);

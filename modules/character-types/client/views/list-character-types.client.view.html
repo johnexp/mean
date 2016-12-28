@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>{{ "Character types" | translate }}</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="characterType in vm.characterTypes"
+       ui-sref="character-types.view({ characterTypeId: characterType._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        {{ "Posted on" | translate }}
+        <span ng-bind="characterType.created | date:'mediumDate'"></span>
+        {{ "by" | translate }}
+        <span ng-if="characterType.user" ng-bind="characterType.user.displayName"></span>
+        <span ng-if="!characterType.user">{{ "Deleted User" | translate }}</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="characterType.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.characterTypes.$resolved && !vm.characterTypes.length">
+    {{ "No Character types yet, why don't you" | translate }} <a ui-sref="character-types.create">{{ "create_one" | translate }}</a>?
+  </div>
+</section>
