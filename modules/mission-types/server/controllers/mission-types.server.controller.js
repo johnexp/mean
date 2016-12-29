@@ -5,114 +5,114 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  CharacterType = mongoose.model('CharacterType'),
+  MissionType = mongoose.model('MissionType'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
 /**
- * Create a Character type
+ * Create a Mission type
  */
 exports.create = function(req, res) {
-  var characterType = new CharacterType(req.body);
-  characterType.user = req.user;
+  var missionType = new MissionType(req.body);
+  missionType.user = req.user;
 
-  characterType.save(function(err) {
+  missionType.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(characterType);
+      res.jsonp(missionType);
     }
   });
 };
 
 /**
- * Show the current Character type
+ * Show the current Mission type
  */
 exports.read = function(req, res) {
   // convert mongoose document to JSON
-  var characterType = req.characterType ? req.characterType.toJSON() : {};
+  var missionType = req.missionType ? req.missionType.toJSON() : {};
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  characterType.isCurrentUserOwner = req.user && characterType.user && characterType.user._id.toString() === req.user._id.toString();
+  missionType.isCurrentUserOwner = req.user && missionType.user && missionType.user._id.toString() === req.user._id.toString();
 
-  res.jsonp(characterType);
+  res.jsonp(missionType);
 };
 
 /**
- * Update a Character type
+ * Update a Mission type
  */
 exports.update = function(req, res) {
-  var characterType = req.characterType;
+  var missionType = req.missionType;
 
-  characterType = _.extend(characterType, req.body);
-  characterType.modified.push({ 'date': Date.now(), 'user': req.user });
+  missionType = _.extend(missionType, req.body);
+  missionType.modified.push({ 'date': Date.now(), 'user': req.user });
 
-  characterType.save(function(err) {
+  missionType.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(characterType);
+      res.jsonp(missionType);
     }
   });
 };
 
 /**
- * Delete an Character type
+ * Delete an Mission type
  */
 exports.delete = function(req, res) {
-  var characterType = req.characterType;
+  var missionType = req.missionType;
 
-  characterType.remove(function(err) {
+  missionType.remove(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(characterType);
+      res.jsonp(missionType);
     }
   });
 };
 
 /**
- * List of Character types
+ * List of Mission types
  */
 exports.list = function(req, res) {
-  CharacterType.find().sort('-created').populate('user', 'displayName').exec(function(err, characterTypes) {
+  MissionType.find().sort('-created').populate('user', 'displayName').exec(function(err, missionTypes) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(characterTypes);
+      res.jsonp(missionTypes);
     }
   });
 };
 
 /**
- * Character type middleware
+ * Mission type middleware
  */
-exports.characterTypeByID = function(req, res, next, id) {
+exports.missionTypeByID = function(req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Character type is invalid'
+      message: 'Mission type is invalid'
     });
   }
 
-  CharacterType.findById(id).populate('user', 'displayName').exec(function (err, characterType) {
+  MissionType.findById(id).populate('user', 'displayName').exec(function (err, missionType) {
     if (err) {
       return next(err);
-    } else if (!characterType) {
+    } else if (!missionType) {
       return res.status(404).send({
-        message: 'No Character type with that identifier has been found'
+        message: 'No Mission type with that identifier has been found'
       });
     }
-    req.characterType = characterType;
+    req.missionType = missionType;
     next();
   });
 };

@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1 translate>Mission types</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="missionType in vm.missionTypes"
+       ui-sref="mission-types.view({ missionTypeId: missionType._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        {{ "Posted on" | translate }}
+        <span ng-bind="missionType.created | date:'mediumDate'"></span>
+        {{ "by" | translate }}
+        <span ng-if="missionType.user" ng-bind="missionType.user.displayName"></span>
+        <span ng-if="!missionType.user" translate>Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="missionType.name | translate"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.missionTypes.$resolved && !vm.missionTypes.length">
+    {{ "No Mission types yet, why don't you" | translate }} <a ui-sref="mission-types.create" translate>create one</a>?
+  </div>
+</section>

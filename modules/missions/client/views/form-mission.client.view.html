@@ -1,0 +1,67 @@
+<section>
+  <div class="page-header">
+    <h1 translate>{{vm.mission._id ? 'Edit Mission' : 'New Mission'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.missionForm" class="form-horizontal" ng-submit="vm.save(vm.form.missionForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name" translate>Name</label>
+          <input name="name" type="text" ng-model="vm.mission.name" id="name" class="form-control" placeholder="{{ 'Name' | translate }}" required>
+          <div ng-messages="vm.form.missionForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" translate>Mission name is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="description" translate>Description</label>
+          <textarea name="description" ng-model="vm.mission.description" id="description" class="form-control" placeholder="{{ 'Description' | translate }}" required></textarea>
+          <div ng-messages="vm.form.missionForm.description.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" translate>Please fill Mission description</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="missionType" translate>Mission Type</label>
+          <select name="missionType" ng-model="vm.mission.missionType" id="missionType" class="form-control" placeholder="{{ 'Mission Type' | translate }}" required>
+            <option ng-repeat="missionType in vm.missionTypes" value="{{ missionType._id }}">{{ missionType.name }}</option>
+          </select>
+          <!--<input name="missionType" type="text" ng-model="vm.mission.missionType" id="missionType" class="form-control" placeholder="{{ 'Mission Type' | translate }}" required>-->
+          <div ng-messages="vm.form.missionForm.missionType.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" translate>Please fill Mission type</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="minLevel" translate>Min Level</label>
+          <input name="minLevel" type="number" min="0" ng-model="vm.mission.minLevel" id="minLevel" class="form-control" placeholder="{{ 'Min Level' | translate }}" required>
+          <div ng-messages="vm.form.missionForm.minLevel.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" translate>Please fill Mission min level</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="maxLevel" translate>Max Level</label>
+          <input name="maxLevel" type="number" min="1" ng-model="vm.mission.maxLevel" id="maxLevel" class="form-control" placeholder="{{ 'Max Level' | translate }}" required>
+          <div ng-messages="vm.form.missionForm.maxLevel.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" translate>Please fill Mission max level</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="rewardFeather" translate>Reward Feather</label>
+          <input name="rewardFeather" type="text" ng-model="vm.mission.rewardFeather" id="rewardFeather" class="form-control" placeholder="{{ 'Reward Feather' | translate }}">
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="rewardXp" translate>Reward XP</label>
+          <input name="rewardXp" type="text" ng-model="vm.mission.rewardXp" id="rewardXp" class="form-control" placeholder="{{ 'Reward XP' | translate }}">
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="timeLimit" translate>Time Limit (Seconds)</label>
+          <input name="timeLimit" type="text" ng-model="vm.mission.timeLimit" id="timeLimit" class="form-control" placeholder="{{ 'Time Limit (Seconds)' | translate }}">
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default" translate>{{vm.mission._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

@@ -6,20 +6,23 @@
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
-
 /**
- * Character type Schema
+ * Mission type Schema
  */
-var CharacterTypeSchema = new Schema({
+var MissionTypeSchema = new Schema({
   name: {
     type: String,
-    default: ' ',
-    required: 'Please fill Character type name',
+    default: '',
+    required: 'Please fill Mission type name',
     trim: true
   },
   created: {
     type: Date,
     default: Date.now
+  },
+  user: {
+    type: Schema.ObjectId,
+    ref: 'User'
   },
   modified: [{
     _id: false,
@@ -31,14 +34,10 @@ var CharacterTypeSchema = new Schema({
       ref: 'User'
     }
   }],
-  user: {
-    type: Schema.ObjectId,
-    ref: 'User'
-  },
   active: {
     type: Boolean,
     default: true
   }
 });
 
-mongoose.model('CharacterType', CharacterTypeSchema);
+mongoose.model('MissionType', MissionTypeSchema);

@@ -49,6 +49,11 @@
     }
 
     // Then init the app
-    angular.bootstrap(document, [app.applicationModuleName]);
+    var injector = angular.bootstrap(document, [app.applicationModuleName]);
+    injector.invoke(function($rootScope, $translate) {
+      $rootScope.$on('$translatePartialLoaderStructureChanged', function () {
+        $translate.refresh();
+      });
+    });
   }
 }(ApplicationConfiguration));

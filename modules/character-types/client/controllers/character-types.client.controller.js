@@ -11,15 +11,15 @@
   function CharacterTypesController ($scope, $state, $window, Authentication, characterType, $translatePartialLoader, $translate) {
     var vm = this;
 
-    $translatePartialLoader.addPart('character-types');
-    $translate.refresh();
-
     vm.authentication = Authentication;
     vm.characterType = characterType;
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+
+    $translatePartialLoader.addPart('character-types');
+    $translate.refresh();
 
     // Remove existing Character type
     function remove() {

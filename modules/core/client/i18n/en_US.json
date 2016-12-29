@@ -5,5 +5,15 @@
     "title": "Character types",
     "list": "List",
     "create": "Create"
+  },
+  "mission-types": {
+    "title": "Mission types",
+    "list": "List",
+    "create": "Create"
+  },
+  "missions": {
+    "title": "Missions",
+    "list": "List",
+    "create": "Create"
   }
 }

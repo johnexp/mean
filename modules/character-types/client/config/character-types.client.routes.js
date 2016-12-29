@@ -16,48 +16,50 @@
       })
       .state('character-types.list', {
         url: '',
-        templateUrl: 'modules/character-types/client/views/list-character-types.client.view.html',
+        templateUrl: '/modules/character-types/client/views/list-character-types.client.view.html',
         controller: 'CharacterTypesListController',
         controllerAs: 'vm',
         data: {
+          roles: ['user'],
           pageTitle: 'Character types List'
         }
       })
       .state('character-types.create', {
         url: '/create',
-        templateUrl: 'modules/character-types/client/views/form-character-type.client.view.html',
+        templateUrl: '/modules/character-types/client/views/form-character-type.client.view.html',
         controller: 'CharacterTypesController',
         controllerAs: 'vm',
         resolve: {
           characterTypeResolve: newCharacterType
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['admin'],
           pageTitle: 'Character types Create'
         }
       })
       .state('character-types.edit', {
         url: '/:characterTypeId/edit',
-        templateUrl: 'modules/character-types/client/views/form-character-type.client.view.html',
+        templateUrl: '/modules/character-types/client/views/form-character-type.client.view.html',
         controller: 'CharacterTypesController',
         controllerAs: 'vm',
         resolve: {
           characterTypeResolve: getCharacterType
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['admin'],
           pageTitle: 'Edit Character type {{ characterTypeResolve.name }}'
         }
       })
       .state('character-types.view', {
         url: '/:characterTypeId',
-        templateUrl: 'modules/character-types/client/views/view-character-type.client.view.html',
+        templateUrl: '/modules/character-types/client/views/view-character-type.client.view.html',
         controller: 'CharacterTypesController',
         controllerAs: 'vm',
         resolve: {
           characterTypeResolve: getCharacterType
         },
         data: {
+          roles: ['user'],
           pageTitle: 'Character type {{ characterTypeResolve.name }}'
         }
       });

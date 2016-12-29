@@ -5,5 +5,15 @@
     "title": "Tipos de Personagens",
     "list": "Listar",
     "create": "Cadastrar"
+  },
+  "mission-types": {
+    "title": "Tipos de Missão",
+    "list": "Listar",
+    "create": "Cadastrar"
+  },
+  "missions": {
+    "title": "Missões",
+    "list": "Listar",
+    "create": "Cadastrar"
   }
 }
