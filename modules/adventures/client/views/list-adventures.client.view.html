@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Adventures</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="adventure in vm.adventures"
+       ui-sref="adventures.view({ adventureId: adventure._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        {{ "Posted on" | translate }}
+        <span ng-bind="adventure.created | date:'mediumDate'"></span>
+        {{ "by" | translate }}
+        <span ng-if="adventure.user" ng-bind="adventure.user.displayName"></span>
+        <span ng-if="!adventure.user" translate>Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="adventure.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.adventures.$resolved && !vm.adventures.length">
+    {{ "No Adventures yet, why don't you" }} <a ui-sref="adventures.create" translate>create one</a>?
+  </div>
+</section>

@@ -4,8 +4,41 @@
   </div>
   <div class="object-values">
     <dl class="dl-horizontal">
-        <dt ng-repeat-start="(key, value) in vm.mission"><span>{{key | translate}}</span>:</dt>
-        <dd ng-repeat-end>{{value}}</dd>
+      <dt translate>Name</dt>
+      <dd ng-bind="vm.mission.name"></dd>
+      <dt translate>Description</dt>
+      <dd ng-bind="vm.mission.description"></dd>
+      <dt translate>Mission Type</dt>
+      <dd><a ui-sref="mission-types.view({ missionTypeId: vm.mission.missionType._id })" ng-bind="vm.mission.missionType.name"></a></dd>
+      <dt translate>Min Level</dt>
+      <dd ng-bind="vm.mission.minLevel"></dd>
+      <dt translate>Max Level</dt>
+      <dd ng-bind="vm.mission.maxLevel"></dd>
+      <dt translate>Reward Feather</dt>
+      <dd ng-bind="vm.mission.rewardFeather"></dd>
+      <dt translate>Reward XP</dt>
+      <dd ng-bind="vm.mission.rewardXp"></dd>
+      <dt translate>Time Limit (Seconds)</dt>
+      <dd ng-bind="vm.mission.timeLimit"></dd>
+      <dt translate>History</dt>
+      <dd>
+        <table class="table table-condensed">
+          <thead>
+          <tr>
+            <th translate>User</th>
+            <th translate>Date</th>
+            <th translate>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="modified in vm.mission.modified">
+            <td><a ui-sref="admin.user({ userId: modified.user._id })">{{modified.user.displayName}}</a></td>
+            <td>{{modified.date | date: "dd/MM/yyyy HH:mm:ss"}}</td>
+            <td translate>{{modified.action}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </dd>
     </dl>
   </div>
   <div class="pull-right"

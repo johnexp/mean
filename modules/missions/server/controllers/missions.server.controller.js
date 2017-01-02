@@ -15,6 +15,7 @@ var path = require('path'),
 exports.create = function(req, res) {
   var mission = new Mission(req.body);
   mission.user = req.user;
+  mission.modified.push({ 'date': Date.now(), 'user': req.user, 'action': 'C' });
 
   mission.save(function(err) {
     if (err) {
@@ -68,7 +69,7 @@ exports.delete = function(req, res) {
   var mission = req.mission;
 
   mission.active = false;
-  mission.modified.push({ 'date': Date.now(), 'user': req.user, 'action': 'R' });
+  mission.modified.push({ 'date': Date.now(), 'user': req.user, 'action': 'D' });
 
   mission.save(function(err) {
     if (err) {
@@ -107,15 +108,19 @@ exports.missionByID = function(req, res, next, id) {
     });
   }
 
-  Mission.findById(id).populate('user', 'displayName').exec(function (err, mission) {
-    if (err) {
-      return next(err);
-    } else if (!mission) {
-      return res.status(404).send({
-        message: 'No Mission with that identifier has been found'
-      });
-    }
-    req.mission = mission;
-    next();
-  });
+  Mission.findById(id)
+    .populate('user', 'displayName')
+    .populate('missionType', 'name')
+    .populate('modified.user', 'displayName')
+    .exec(function (err, mission) {
+      if (err) {
+        return next(err);
+      } else if (!mission) {
+        return res.status(404).send({
+          message: 'No Mission with that identifier has been found'
+        });
+      }
+      req.mission = mission;
+      next();
+    });
 };

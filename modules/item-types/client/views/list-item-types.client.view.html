@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1 translate>Item types</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="itemType in vm.itemTypes"
+       ui-sref="item-types.view({ itemTypeId: itemType._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        {{ "Posted on" | translate }}
+        <span ng-bind="itemType.created | date:'mediumDate'"></span>
+        {{ "by" | translate }}
+        <span ng-if="itemType.user" ng-bind="itemType.user.displayName"></span>
+        <span ng-if="!itemType.user" translate>Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="itemType.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.itemTypes.$resolved && !vm.itemTypes.length">
+    {{ "No Item types yet, why don't you" }} <a ui-sref="item-types.create" translate>create one</a>?
+  </div>
+</section>

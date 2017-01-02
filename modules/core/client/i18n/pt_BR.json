@@ -15,5 +15,20 @@
     "title": "Missões",
     "list": "Listar",
     "create": "Cadastrar"
+  },
+  "adventures": {
+    "title": "Aventuras",
+    "list": "Listar",
+    "create": "Cadastrar"
+  },
+  "item-types": {
+    "title": "Tipos de Item",
+    "list": "Listar",
+    "create": "Cadastrar"
+  },
+  "ranks": {
+    "title": "Ranks",
+    "list": "Listar",
+    "create": "Cadastrar"
   }
 }

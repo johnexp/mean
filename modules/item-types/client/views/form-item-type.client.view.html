@@ -1,0 +1,32 @@
+<section>
+  <div class="page-header">
+    <h1 translate>{{vm.itemType._id ? 'Edit Item type' : 'New Item type'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.itemTypeForm" class="form-horizontal" ng-submit="vm.save(vm.form.itemTypeForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name" translate>Name</label>
+          <input name="name" type="text" ng-model="vm.itemType.name" id="name" class="form-control" placeholder="{{ 'Name' | translate }}" required>
+          <div ng-messages="vm.form.itemTypeForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" translate>Item type name is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="">
+            <label>
+              <span translate>Can Be Equiped</span>
+              <input type="checkbox" ng-model="vm.itemType.canBeEquiped" id="canBeEquiped" ng-checked="vm.itemType.canBeEquiped">
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-raised" translate>{{vm.itemType._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

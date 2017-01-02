@@ -1,0 +1,69 @@
+<section>
+  <div class="page-header">
+    <h1 translate>{{vm.adventure._id ? 'Edit Adventure' : 'New Adventure'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.adventureForm" class="form-horizontal" ng-submit="vm.save(vm.form.adventureForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name" translate>Name</label>
+          <input name="name" type="text" ng-model="vm.adventure.name" id="name" class="form-control" placeholder="{{ 'Name' | translate }}" required>
+          <div ng-messages="vm.form.adventureForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" translate>Adventure name is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="description" translate>Description</label>
+          <textarea name="description" ng-model="vm.adventure.description" id="description" class="form-control" placeholder="{{ 'Description' | translate }}" required></textarea>
+          <div ng-messages="vm.form.adventureForm.description.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" translate>Please fill Adventure description</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="minLevel" translate>Min Level</label>
+          <input name="minLevel" type="number" min="0" ng-model="vm.adventure.minLevel" id="minLevel" class="form-control" placeholder="{{ 'Min Level' | translate }}" required>
+          <div ng-messages="vm.form.adventureForm.minLevel.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" translate>Please fill Adventure min level</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="maxLevel" translate>Max Level</label>
+          <input name="maxLevel" type="number" min="1" ng-model="vm.adventure.maxLevel" id="maxLevel" class="form-control" placeholder="{{ 'Max Level' | translate }}" required>
+          <div ng-messages="vm.form.adventureForm.maxLevel.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" translate>Please fill Adventure max level</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="rewardFeather" translate>Reward Feather</label>
+          <input name="rewardFeather" type="text" ng-model="vm.adventure.rewardFeather" id="rewardFeather" class="form-control" placeholder="{{ 'Reward Feather' | translate }}">
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="rewardXp" translate>Reward XP</label>
+          <input name="rewardXp" type="text" ng-model="vm.adventure.rewardXp" id="rewardXp" class="form-control" placeholder="{{ 'Reward XP' | translate }}">
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="rewardBlood" translate>Reward Royal Blood</label>
+          <input name="rewardBlood" type="text" ng-model="vm.adventure.rewardBlood" id="rewardBlood" class="form-control" placeholder="{{ 'Reward Royal Blood' | translate }}">
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="timeLimit" translate>Time Limit (Seconds)</label>
+          <input name="timeLimit" type="text" ng-model="vm.adventure.timeLimit" id="timeLimit" class="form-control" placeholder="{{ 'Time Limit (Seconds)' | translate }}">
+        </div>
+        <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <input name="canRepeat" type="checkbox" ng-model="vm.adventure.canRepeat" id="canRepeat" ng-checked="vm.adventure.canRepeat">
+              <span translate>Can Repeat</span>
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-raised">{{vm.adventure._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

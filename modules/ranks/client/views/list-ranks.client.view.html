@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1 translate>Ranks</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="rank in vm.ranks"
+       ui-sref="ranks.view({ rankId: rank._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        {{ "Posted on" | translate }}
+        <span ng-bind="rank.created | date:'mediumDate'"></span>
+        {{ "by" | translate }}
+        <span ng-if="rank.user" ng-bind="rank.user.displayName"></span>
+        <span ng-if="!rank.user" translate>Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="rank.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.ranks.$resolved && !vm.ranks.length">
+    {{ "No Ranks yet, why don't you" | translate }} <a ui-sref="ranks.create" translate>create one</a>?
+  </div>
+</section>

@@ -3,7 +3,7 @@
   "create one": "criar um",
   "No Missions yet, why don't you": "Sem Missões ainda, deseja",
   "Edit Mission": "Editar Missão",
-  "New Mission": "Novo Missão",
+  "New Mission": "Nova Missão",
   "Name": "Nome",
   "Create": "Criar",
   "Update": "Atualizar",
@@ -21,5 +21,12 @@
   "Max Level": "Nível máximo",
   "Reward Feather": "Recomensa em penas",
   "Reward XP": "Recompensa em XP",
-  "Time Limit (Seconds)": "Tempo limite (Segundos)"
+  "Time Limit (Seconds)": "Tempo limite (Segundos)",
+  "U": "Atualizado",
+  "C": "Criado",
+  "D": "Excluído",
+  "User": "Usuário",
+  "Date": "Data",
+  "Action": "Ação",
+  "History": "Histórico"
 }

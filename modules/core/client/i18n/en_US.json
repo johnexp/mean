@@ -15,5 +15,20 @@
     "title": "Missions",
     "list": "List",
     "create": "Create"
+  },
+  "adventures": {
+    "title": "Adventures",
+    "list": "List",
+    "create": "Create"
+  },
+  "item-types": {
+    "title": "Item types",
+    "list": "List",
+    "create": "Create"
+  },
+  "ranks": {
+    "title": "Ranks",
+    "list": "List",
+    "create": "Create"
   }
 }
