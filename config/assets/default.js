@@ -30,6 +30,7 @@ module.exports = {
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
         'public/lib/angular-translate/angular-translate.js',
         'public/lib/angular-translate-loader-partial/angular-translate-loader-partial.js',
+        'public/lib/angular-ui-mask/dist/mask.js',
         //'//fezvrasta.github.io/bootstrap-material-design/dist/js/ripples.min.js',
         //'//fezvrasta.github.io/bootstrap-material-design/dist/js/material.js'
         // endbower

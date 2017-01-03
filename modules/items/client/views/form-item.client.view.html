@@ -1,19 +1,135 @@
 <section>
   <div class="page-header">
-    <h1>{{vm.item._id ? 'Edit Item' : 'New Item'}}</h1>
+    <h1 translate>{{vm.item._id ? 'Edit Item' : 'New Item'}}</h1>
   </div>
   <div class="col-md-12">
     <form name="vm.form.itemForm" class="form-horizontal" ng-submit="vm.save(vm.form.itemForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
-          <label class="control-label" for="name">Name</label>
-          <input name="name" type="text" ng-model="vm.item.name" id="name" class="form-control" placeholder="Name" required>
+          <label class="control-label" for="name" translate>Name</label>
+          <input name="name" type="text" ng-model="vm.item.name" id="name" class="form-control" placeholder="{{ 'Name' | translate }}" required>
           <div ng-messages="vm.form.itemForm.name.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Item name is required.</p>
+            <p class="help-block error-text" ng-message="required" translate>Item name is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="description" translate>Description</label>
+          <input name="description" type="text" ng-model="vm.item.description" id="description" class="form-control" placeholder="{{ 'Description' | translate }}" required>
+          <div ng-messages="vm.form.itemForm.description.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" translate>Item description is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="itemType" translate>Item Type</label>
+          <input name="itemType" type="text" ng-model="vm.item.itemType" id="itemType" class="form-control" placeholder="{{ 'Item Type' | translate }}" required>
+          <div ng-messages="vm.form.itemForm.itemType.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" translate>Item Item Type is required.</p>
           </div>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-default">{{vm.item._id ? 'Update' : 'Create'}}</button>
+          <label class="control-label" for="uptime" translate>Uptime</label>
+          <input name="uptime" type="number" ng-model="vm.item.uptime" id="uptime" min="0" class="form-control" placeholder="{{ 'Uptime' | translate }}">
+        </div>
+        <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <input name="canSellNPC" type="text" ng-model="vm.item.canSellNPC" id="canSellNPC" class="form-control" required>
+              <span translate>Can sell to NPC?</span>
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <input name="canSellPlayer" type="text" ng-model="vm.item.canSellPlayer" id="canSellPlayer" class="form-control" required>
+              <span translate>Can sell to player?</span>
+            </label>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="sellPrice" translate>Sell Price</label>
+          <input name="sellPrice" type="text" ng-model="vm.item.sellPrice" id="sellPrice" class="form-control" placeholder="{{ 'Sell Price' | translate }}" required>
+          <div ng-messages="vm.form.itemForm.sellPrice.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" translate>Item Sell Price is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="buyPrice" translate>Buy Price</label>
+          <input name="buyPrice" type="text" ng-model="vm.item.buyPrice" id="buyPrice" class="form-control" placeholder="{{ 'Buy Price' | translate }}" required>
+          <div ng-messages="vm.form.itemForm.buyPrice.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" translate>Item Buy Price is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="rank" translate>Rank</label>
+          <input name="rank" type="text" ng-model="vm.item.rank" id="rank" class="form-control" placeholder="{{ 'Rank' | translate }}" required>
+          <div ng-messages="vm.form.itemForm.rank.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" translate>Item rank is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="charMinLevel" translate>Char Min Level</label>
+          <input name="charMinLevel" type="number" min="1" ng-model="vm.item.charMinLevel" id="charMinLevel" class="form-control" placeholder="{{ 'Char Min Level' | translate }}" required>
+          <div ng-messages="vm.form.itemForm.charMinLevel.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" translate>Item Char Min Level is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="charRecomendedLevel" translate>Char Recomended Level</label>
+          <input name="charRecomendedLevel" type="number" min="1" ng-model="vm.item.charRecomendedLevel" id="charRecomendedLevel" class="form-control" placeholder="{{ 'Char Recomended Level' | translate }}" required>
+          <div ng-messages="vm.form.itemForm.charRecomendedLevel.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" translate>Item Char Recomended Level is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="sellCurrency" translate>Sell Currency</label>
+          <input name="sellCurrency" type="text" ng-model="vm.item.sellCurrency" id="sellCurrency" class="form-control" placeholder="{{ 'Sell Currency' | translate }}" required>
+          <div ng-messages="vm.form.itemForm.sellCurrency.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" translate>Item Sell Currency is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="buyCurrency" translate>Buy Currency</label>
+          <input name="buyCurrency" type="text" ng-model="vm.item.buyCurrency" id="buyCurrency" class="form-control" placeholder="{{ 'Buy Currency' | translate }}" required>
+          <div ng-messages="vm.form.itemForm.buyCurrency.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" translate>Item Buy Currency is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="hardness" translate>Hardness</label>
+          <input name="hardness" type="text" ng-model="vm.item.hardness" id="hardness" class="form-control" ui-mask="4" placeholder="{{ 'Hardness' | translate }}">
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="maxHealth" translate>Max Health</label>
+          <input name="maxHealth" type="number" min="1" ng-model="vm.item.maxHealth" id="maxHealth" class="form-control" placeholder="{{ 'Max Health' | translate }}">
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="maxItemLevel" translate>Max Item Level</label>
+          <input name="maxItemLevel" type="number" min="1" ng-model="vm.item.maxItemLevel" id="maxItemLevel" class="form-control" placeholder="{{ 'Max Item Level' | translate }}" required>
+          <div ng-messages="vm.form.itemForm.maxItemLevel.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" translate>Item Max Item Level is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="incrementPerLevel" translate>Increment Per Level</label>
+          <input name="incrementPerLevel" type="text" ng-model="vm.item.incrementPerLevel" ui-number-mask="decimals" id="incrementPerLevel" class="form-control" placeholder="{{ 'Increment Per Level' | translate }}">
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="thumbnail" translate>Thumbnail</label>
+          <input name="thumbnail" type="text" ng-model="vm.item.thumbnail" id="thumbnail" class="form-control" placeholder="{{ 'Thumbnail' | translate }}" required>
+          <div ng-messages="vm.form.itemForm.thumbnail.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" translate>Item Thumbnail is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="imagePlaced" translate>Image Placed</label>
+          <input name="imagePlaced" type="text" ng-model="vm.item.imagePlaced" id="imagePlaced" class="form-control" placeholder="{{ 'Image Placed' | translate }}" required>
+          <div ng-messages="vm.form.itemForm.imagePlaced.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" translate>Item Image Placed is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-raised" translate>{{vm.item._id ? 'Update' : 'Create'}}</button>
         </div>
         <div ng-show="vm.error" class="text-danger">
           <strong ng-bind="vm.error"></strong>

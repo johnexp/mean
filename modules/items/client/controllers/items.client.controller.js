@@ -6,9 +6,9 @@
     .module('items')
     .controller('ItemsController', ItemsController);
 
-  ItemsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'itemResolve'];
+  ItemsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'itemResolve', '$translatePartialLoader', '$translate'];
 
-  function ItemsController ($scope, $state, $window, Authentication, item) {
+  function ItemsController ($scope, $state, $window, Authentication, item, $translatePartialLoader, $translate) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -17,6 +17,9 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+
+    $translatePartialLoader.addPart('items');
+    $translate.refresh();
 
     // Remove existing Item
     function remove() {
@@ -32,12 +35,9 @@
         return false;
       }
 
-      // TODO: move create/update logic to service
-      if (vm.item._id) {
-        vm.item.$update(successCallback, errorCallback);
-      } else {
-        vm.item.$save(successCallback, errorCallback);
-      }
+      vm.item.createOrUpdate()
+        .then(successCallback)
+        .catch(errorCallback);
 
       function successCallback(res) {
         $state.go('items.view', {

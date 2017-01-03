@@ -9,24 +9,25 @@
 
   function menuConfig(menuService) {
     // Set top bar menu items
-    menuService.addMenuItem('topbar', {
+    menuService.addMenuItem('sidebar', {
       title: 'Items',
       state: 'items',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['user', 'admin']
     });
 
     // Add the dropdown list item
-    menuService.addSubMenuItem('topbar', 'items', {
+    menuService.addSubMenuItem('sidebar', 'items', {
       title: 'List Items',
-      state: 'items.list'
+      state: 'items.list',
+      roles: ['user', 'admin']
     });
 
     // Add the dropdown create item
-    menuService.addSubMenuItem('topbar', 'items', {
+    menuService.addSubMenuItem('sidebar', 'items', {
       title: 'Create Item',
       state: 'items.create',
-      roles: ['user']
+      roles: ['admin']
     });
   }
 }());

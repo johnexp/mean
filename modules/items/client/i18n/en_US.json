@@ -1,0 +1,22 @@
+{
+  "Items": "Items",
+  "create_one": "create one",
+  "No Items yet, why don't you": "No Items yet, why don't you",
+  "Edit Item": "Edit Item",
+  "New Item": "New Item",
+  "Name": "Name",
+  "Can Be Equiped": "Can Be Equiped?",
+  "Create": "Create",
+  "Update": "Update",
+  "Item name is required.": "Item name is required.",
+  "Deleted User": "Deleted User",
+  "Posted on": "Posted on",
+  "by": "by",
+  "U": "Updated",
+  "C": "Created",
+  "D": "Deleted",
+  "User": "User",
+  "Date": "Date",
+  "Action": "Action",
+  "History": "History"
+}

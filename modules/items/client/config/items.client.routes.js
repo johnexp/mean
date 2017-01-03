@@ -16,29 +16,43 @@
       })
       .state('items.list', {
         url: '',
-        templateUrl: 'modules/items/client/views/list-items.client.view.html',
+        templateUrl: '/modules/items/client/views/list-items.client.view.html',
         controller: 'ItemsListController',
         controllerAs: 'vm',
         data: {
+          roles: ['user', 'admin'],
           pageTitle: 'Items List'
         }
       })
       .state('items.create', {
         url: '/create',
-        templateUrl: 'modules/items/client/views/form-item.client.view.html',
+        templateUrl: '/modules/items/client/views/form-item.client.view.html',
         controller: 'ItemsController',
         controllerAs: 'vm',
         resolve: {
           itemResolve: newItem
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['admin'],
           pageTitle: 'Items Create'
         }
       })
       .state('items.edit', {
         url: '/:itemId/edit',
-        templateUrl: 'modules/items/client/views/form-item.client.view.html',
+        templateUrl: '/modules/items/client/views/form-item.client.view.html',
+        controller: 'ItemsController',
+        controllerAs: 'vm',
+        resolve: {
+          itemResolve: getItem
+        },
+        data: {
+          roles: ['admin'],
+          pageTitle: 'Edit Item {{ itemResolve.name }}'
+        }
+      })
+      .state('items.view', {
+        url: '/:itemId',
+        templateUrl: '/modules/items/client/views/view-item.client.view.html',
         controller: 'ItemsController',
         controllerAs: 'vm',
         resolve: {
@@ -46,18 +60,6 @@
         },
         data: {
           roles: ['user', 'admin'],
-          pageTitle: 'Edit Item {{ itemResolve.name }}'
-        }
-      })
-      .state('items.view', {
-        url: '/:itemId',
-        templateUrl: 'modules/items/client/views/view-item.client.view.html',
-        controller: 'ItemsController',
-        controllerAs: 'vm',
-        resolve: {
-          itemResolve: getItem
-        },
-        data: {
           pageTitle: 'Item {{ itemResolve.name }}'
         }
       });

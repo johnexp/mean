@@ -15,6 +15,7 @@ var path = require('path'),
 exports.create = function(req, res) {
   var item = new Item(req.body);
   item.user = req.user;
+  item.modified.push({ 'date': Date.now(), 'user': req.user, 'action': 'C' });
 
   item.save(function(err) {
     if (err) {
@@ -48,6 +49,7 @@ exports.update = function(req, res) {
   var item = req.item;
 
   item = _.extend(item, req.body);
+  item.modified.push({ 'date': Date.now(), 'user': req.user, 'action': 'U' });
 
   item.save(function(err) {
     if (err) {
@@ -66,7 +68,10 @@ exports.update = function(req, res) {
 exports.delete = function(req, res) {
   var item = req.item;
 
-  item.remove(function(err) {
+  item.active = false;
+  item.modified.push({ 'date': Date.now(), 'user': req.user, 'action': 'D' });
+
+  item.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -103,7 +108,7 @@ exports.itemByID = function(req, res, next, id) {
     });
   }
 
-  Item.findById(id).populate('user', 'displayName').exec(function (err, item) {
+  Item.findById(id).populate('user', 'displayName').populate('modified.user', 'displayName').exec(function (err, item) {
     if (err) {
       return next(err);
     } else if (!item) {
