@@ -6,7 +6,7 @@
   var service = {
     applicationEnvironment: window.env,
     applicationModuleName: applicationModuleName,
-    applicationModuleVendorDependencies: ['ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ngFileUpload', 'ui-notification', 'pascalprecht.translate', 'ui.mask'],
+    applicationModuleVendorDependencies: ['ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ngFileUpload', 'ui-notification', 'pascalprecht.translate', 'ui.mask', 'ngMdIcons', 'ui.select', 'ngSanitize'],
     registerModule: registerModule
   };
 
@@ -43,6 +43,7 @@
     // Definimos o idioma padrão
     $translateProvider.preferredLanguage('en_US');
     $translateProvider.forceAsyncReload(true);
+    $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
     // Se você preferir que o idioma padrão seja detectado pelo idioma do browser
     // use as linhas abaixo:
     //

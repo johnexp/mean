@@ -21,7 +21,16 @@
         </div>
         <div class="form-group" show-errors>
           <label class="control-label" for="itemType" translate>Item Type</label>
-          <input name="itemType" type="text" ng-model="vm.item.itemType" id="itemType" class="form-control" placeholder="{{ 'Item Type' | translate }}" required>
+          <ui-select ng-model="vm.item.itemType" id="itemType" name="itemType" theme="bootstrap">
+            <ui-select-match placeholder="{{ 'Item Type' | translate }}">{{$select.selected.name}}</ui-select-match>
+            <ui-select-choices repeat="itemType in vm.itemTypes | filter: $select.search">
+              <div ng-bind-html="itemType.name | highlight: $select.search"></div>
+              <small>
+                <span ng-bind="'Can Be Equiped: ' | translate"></span>
+                <span ng-bind-html="itemType.canBeEquiped | highlight: $select.search"></span>
+              </small>
+            </ui-select-choices>
+          </ui-select>
           <div ng-messages="vm.form.itemForm.itemType.$error" role="alert">
             <p class="help-block error-text" ng-message="required" translate>Item Item Type is required.</p>
           </div>
@@ -31,18 +40,18 @@
           <input name="uptime" type="number" ng-model="vm.item.uptime" id="uptime" min="0" class="form-control" placeholder="{{ 'Uptime' | translate }}">
         </div>
         <div class="form-group">
-          <div class="checkbox">
+          <div class="">
             <label>
-              <input name="canSellNPC" type="text" ng-model="vm.item.canSellNPC" id="canSellNPC" class="form-control" required>
               <span translate>Can sell to NPC?</span>
+              <input name="canSellNPC" type="checkbox" ng-model="vm.item.canSellNPC" id="canSellNPC" ng-checked="vm.item.canSellNPC" required>
             </label>
           </div>
         </div>
         <div class="form-group">
-          <div class="checkbox">
+          <div class="">
             <label>
-              <input name="canSellPlayer" type="text" ng-model="vm.item.canSellPlayer" id="canSellPlayer" class="form-control" required>
               <span translate>Can sell to player?</span>
+              <input name="canSellPlayer" type="checkbox" ng-model="vm.item.canSellPlayer" id="canSellPlayer" ng-checked="vm.item.canSellPlayer" required>
             </label>
           </div>
         </div>
@@ -62,7 +71,16 @@
         </div>
         <div class="form-group" show-errors>
           <label class="control-label" for="rank" translate>Rank</label>
-          <input name="rank" type="text" ng-model="vm.item.rank" id="rank" class="form-control" placeholder="{{ 'Rank' | translate }}" required>
+          <ui-select ng-model="vm.item.rank" id="rank" name="rank" theme="bootstrap">
+            <ui-select-match placeholder="{{ 'Rank' | translate }}">{{$select.selected.name}}</ui-select-match>
+            <ui-select-choices repeat="rank in vm.ranks | filter: $select.search">
+              <div ng-bind-html="rank.name | highlight: $select.search"></div>
+              <small>
+                <span ng-bind="'Rank Level: ' | translate"></span>
+                <span ng-bind-html="rank.level | highlight: $select.search"></span>
+              </small>
+            </ui-select-choices>
+          </ui-select>
           <div ng-messages="vm.form.itemForm.rank.$error" role="alert">
             <p class="help-block error-text" ng-message="required" translate>Item rank is required.</p>
           </div>
@@ -97,7 +115,7 @@
         </div>
         <div class="form-group">
           <label class="control-label" for="hardness" translate>Hardness</label>
-          <input name="hardness" type="text" ng-model="vm.item.hardness" id="hardness" class="form-control" ui-mask="4" placeholder="{{ 'Hardness' | translate }}">
+          <input name="hardness" type="text" ng-model="vm.item.hardness" id="hardness" class="form-control" ui-mask="99,99">
         </div>
         <div class="form-group">
           <label class="control-label" for="maxHealth" translate>Max Health</label>

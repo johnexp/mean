@@ -6,9 +6,9 @@
     .module('items')
     .controller('ItemsController', ItemsController);
 
-  ItemsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'itemResolve', '$translatePartialLoader', '$translate'];
+  ItemsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'itemResolve', '$translatePartialLoader', '$translate', 'ItemTypesService', 'RanksService'];
 
-  function ItemsController ($scope, $state, $window, Authentication, item, $translatePartialLoader, $translate) {
+  function ItemsController ($scope, $state, $window, Authentication, item, $translatePartialLoader, $translate, ItemTypesService, RanksService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -17,6 +17,8 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+    vm.itemTypes = ItemTypesService.query();
+    vm.ranks = RanksService.query();
 
     $translatePartialLoader.addPart('items');
     $translate.refresh();

@@ -8,12 +8,13 @@ module.exports = {
       css: [
         // bower:css
         'public/lib/bootstrap/dist/css/bootstrap.css',
-        'public/lib/bootstrap/dist/css/bootstrap-theme.css',
+        // 'public/lib/bootstrap/dist/css/bootstrap-theme.css',
         'public/lib/angular-ui-notification/dist/angular-ui-notification.css',
-        '//fonts.googleapis.com/css?family=Roboto:300,400,500,700',
+        'public/lib/angular-material-icons/angular-material-icons.css',
         '//fonts.googleapis.com/icon?family=Material+Icons',
-        '//fezvrasta.github.io/bootstrap-material-design/dist/css/ripples.min.css',
-        '//fezvrasta.github.io/bootstrap-material-design/dist/css/bootstrap-material-design.css',
+        'public/lib/bootstrap-material-design/dist/css/ripples.min.css',
+        'public/lib/bootstrap-material-design/dist/css/bootstrap-material-design.css',
+        'public/lib/angular-ui-select/dist/select.css',
         // endbower
       ],
       js: [
@@ -31,8 +32,11 @@ module.exports = {
         'public/lib/angular-translate/angular-translate.js',
         'public/lib/angular-translate-loader-partial/angular-translate-loader-partial.js',
         'public/lib/angular-ui-mask/dist/mask.js',
-        //'//fezvrasta.github.io/bootstrap-material-design/dist/js/ripples.min.js',
-        //'//fezvrasta.github.io/bootstrap-material-design/dist/js/material.js'
+        'public/lib/angular-material-icons/angular-material-icons.min.js',
+        'public/lib/angular-ui-select/dist/select.js',
+        'public/lib/angular-sanitize/angular-sanitize.js',
+        // '//fezvrasta.github.io/bootstrap-material-design/dist/js/ripples.min.js',
+        // 'public/lib/bootstrap-material-design/dist/bootstrapMaterialDesign.js',
         // endbower
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
