@@ -6,7 +6,9 @@
     .factory('menuService', menuService);
 
   function menuService() {
-    var shouldRender;
+    var shouldRender,
+      openedSection,
+      currentPage;
     var service = {
       addMenu: addMenu,
       addMenuItem: addMenuItem,
@@ -17,7 +19,12 @@
       removeMenu: removeMenu,
       removeMenuItem: removeMenuItem,
       removeSubMenuItem: removeSubMenuItem,
-      validateMenuExistence: validateMenuExistence
+      validateMenuExistence: validateMenuExistence,
+      toggleSelectSection: toggleSelectSection,
+      isSectionSelected: isSectionSelected,
+      isPageSelected: isPageSelected,
+      openedSection: openedSection,
+      currentPage: currentPage
     };
 
     init();
@@ -50,6 +57,7 @@
       service.menus[menuId].items.push({
         title: options.title || '',
         state: options.state || '',
+        icon: options.icon || '',
         type: options.type || 'item',
         class: options.class,
         roles: ((options.roles === null || typeof options.roles === 'undefined') ? service.defaultRoles : options.roles),
@@ -85,7 +93,9 @@
           service.menus[menuId].items[itemIndex].items.push({
             title: options.title || '',
             state: options.state || '',
+            icon: options.icon || '',
             params: options.params || {},
+            type: options.type || 'item',
             roles: ((options.roles === null || typeof options.roles === 'undefined') ? service.menus[menuId].items[itemIndex].roles : options.roles),
             position: options.position || 0,
             shouldRender: shouldRender
@@ -194,6 +204,17 @@
       } else {
         throw new Error('MenuId was not provided');
       }
+    }
+
+    function toggleSelectSection(itemId) {
+      openedSection = openedSection === this.menus.sidebar.items[itemId] ? null : this.menus.sidebar.items[itemId];
+    }
+    function isSectionSelected(itemId) {
+      return openedSection === this.menus.sidebar.items[itemId];
+    }
+
+    function isPageSelected(page) {
+      return currentPage === page;
     }
   }
 }());

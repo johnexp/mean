@@ -1,3 +1,43 @@
+/* fallback */
+@font-face {
+	font-family: 'Material Icons';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Material Icons'), local('MaterialIcons-Regular'), url('../fonts/MaterialIcons-Regular.woff2') format('woff2');
+}
+
+.material-icons {
+	font-family: 'Material Icons';
+	font-weight: normal;
+	font-style: normal;
+	font-size: 24px;
+	line-height: 1;
+	letter-spacing: normal;
+	text-transform: none;
+	display: inline-block;
+	white-space: nowrap;
+	word-wrap: normal;
+	direction: ltr;
+	-webkit-font-feature-settings: 'liga';
+	-webkit-font-smoothing: antialiased;
+}
+/* latin */
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Roboto'), local('Roboto-Regular'), url('../fonts/Roboto-Regular.woff2') format('woff2');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 700;
+	src: local('Roboto Bold'), local('Roboto-Bold'), url('../fonts/Roboto-Bold.woff2') format('woff2');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
 .content {
   margin-top: 50px;
 }
@@ -50,7 +90,6 @@ a:hover .header-profile-image {
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
 	background-color: #FFF;
-	padding-top: 50px;
 }
 
 
@@ -148,4 +187,95 @@ body {
 .placeholder img {
 	border-radius: 50%;
 	display: inline-block;
+}
+
+.menu-items,
+.menu-items ul {
+	list-style: none;
+	padding: 0;
+	max-width: 100%;
+	overflow-x: hidden;
+}
+
+.menu-items li {
+	margin: 0;
+}
+
+.menu-items > li:nth-child(1) {
+	border-top: none;
+}
+.menu-items > li {
+	border-bottom: 1px solid #FFFFFF;
+}
+
+.menu-items .md-button-toggle, .menu-items menu-link > .md-button {
+	border-radius: 0;
+	cursor: pointer;
+	display: block;
+	align-items: inherit;
+	line-height: 40px;
+	margin: 0;
+	max-height: 40px;
+	overflow: hidden;
+	padding: 0px 16px;
+	font-weight: bold;
+	text-align: left;
+	text-decoration: none;
+	text-transform: none;
+	white-space: normal;
+	width: 100%;
+}
+
+html[dir=rtl] .menu-items .md-button,
+body[dir=rtl] .menu-items .md-button {
+	unicode-bidi: embed;
+	text-align: right;
+}
+
+.menu-items .md-button:hover {
+	background: #e1e1e1;
+}
+
+.menu-items .md-button md-icon {
+	color: #FF8C00
+}
+
+.menu-items md-select {
+
+	/* Override md-select margins.  With margins the menu will look incorrect and causes mobile list
+	   to not be scrollable.
+	 */
+	margin: 0;
+	width: 100%;
+}
+
+.menu-toggle-list {
+	overflow: hidden;
+	position: relative;
+	z-index: 1;
+	-webkit-transition: 0.75s cubic-bezier(0.35, 0, 0.25, 1);
+	-webkit-transition-property: height;
+	-moz-transition: 0.75s cubic-bezier(0.35, 0, 0.25, 1);
+	-moz-transition-property: height;
+	transition: 0.75s cubic-bezier(0.35, 0, 0.25, 1);
+	transition-property: height;
+}
+
+.menu-items .menu-toggle-list a.md-button {
+	display: block;
+	padding: 0 16px 0 32px;
+	text-transform: none;
+	text-rendering: optimizeLegibility;
+	color: #4b4b4b;
+	font-weight: 500;
+}
+
+.toggle-icon {
+	-webkit-transition: all 0.5s linear;
+	-moz-transition: all 0.5s linear;
+	transition: all 0.5s linear;
+}
+.toggle-icon.toggled {
+	transform: rotate(90deg);
+	-webkit-transform: rotate(90deg);
 }

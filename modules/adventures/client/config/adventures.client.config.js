@@ -13,6 +13,7 @@
       title: 'Adventures',
       state: 'adventures',
       type: 'dropdown',
+      icon: 'nature_people',
       roles: ['user', 'admin']
     });
 

@@ -1,4 +1,13 @@
-<div class="container" ng-controller="HeaderController as vm">
+<div ng-controller="HeaderController as vm" flex layout="column" layout-fill="">
+  <md-toolbar layout="row" class="md-whiteframe-z2">
+    <md-button ng-click="vm.toggleLeftMenu()" flex aria-label="Abrir o menu">
+      <md-icon class="icone36" md-font-set="material-icons">menu</md-icon>
+    </md-button>
+    <div flex="20">
+      <a ui-sref="home">MEAN.JS</a>
+    </div>
+    <div flex></div>
+  </md-toolbar>
   <div class="navbar-header">
     <button class="navbar-toggle" type="button" ng-click="vm.isCollapsed = !vm.isCollapsed">
       <span class="sr-only">Toggle navigation</span>
@@ -8,18 +17,22 @@
     </button>
     <a ui-sref="home" class="navbar-brand">MEAN.JS</a>
   </div>
-  <nav class="navbar-collapse" uib-collapse="!vm.isCollapsed" role="navigation">
-    <ul class="nav navbar-nav" ng-if="vm.menu.shouldRender(vm.authentication.user);">
-      <li ng-repeat="item in vm.menu.items | orderBy: 'position'" ng-if="item.shouldRender(vm.authentication.user);" ng-switch="item.type" ng-class="{ dropdown: item.type === 'dropdown' }" ui-sref-active="active" class="{{item.class}}" uib-dropdown="item.type === 'dropdown'">
-        <a ng-switch-when="dropdown" class="dropdown-toggle" uib-dropdown-toggle role="button">{{::item.title}}&nbsp;<span class="caret"></span></a>
-        <ul ng-switch-when="dropdown" class="dropdown-menu">
-          <li ng-repeat="subitem in item.items | orderBy: 'position'" ng-if="subitem.shouldRender(vm.authentication.user);">
-            <a ui-sref="{{subitem.state}}({{subitem.params}})" ng-bind="subitem.title"></a>
-          </li>
-        </ul>
-        <a ng-switch-default ui-sref="{{item.state}}" ng-bind="item.title"></a>
-      </li>
-    </ul>
+  <md-menu-bar role="navigation">
+    <md-menu>
+      <button ng-repeat="item in vm.menu.items | orderBy: 'position'"
+                 ng-show="item.shouldRender(vm.authentication.user)"
+                 ng-click="$mdOpenMenu()">{{::item.title}}
+      </button>
+      <md-menu-content>
+        <md-menu-item ng-repeat="subitem in item.items | orderBy: 'position'">
+          <md-button ng-show="subitem.shouldRender(vm.authentication.user)"
+                     ui-sref="{{subitem.state}}({{subitem.params}})">
+            {{subitem.title}}
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+      </md-button>
+    </md-menu>
     <ul class="nav navbar-nav navbar-right">
       <li class="dropdown" ng-class="dropdown" ng-switch="dropdown" ui-sref-active="active" uib-dropdown="true">
         <a uib-dropdown-toggle class="dropdown-toggle" role="button">Lang <span class="caret"></span></a>
@@ -55,5 +68,5 @@
         </ul>
       </li>
     </ul>
-  </nav>
+  </md-menu-bar>
 </div>

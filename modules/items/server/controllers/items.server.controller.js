@@ -4,7 +4,10 @@
  * Module dependencies.
  */
 var path = require('path'),
+  fs = require('fs'),
   mongoose = require('mongoose'),
+  multer = require('multer'),
+  config = require(path.resolve('./config/config')),
   Item = mongoose.model('Item'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
@@ -120,3 +123,79 @@ exports.itemByID = function(req, res, next, id) {
     next();
   });
 };
+
+/**
+ * Update item images
+ */
+exports.changeItemImage = function (req, res) {
+  var item = req.item;
+  var existingImageUrl;
+
+  // Filtering to upload only images
+  var multerConfig = config.uploads.profile.image;
+  multerConfig.fileFilter = require(path.resolve('./config/lib/multer')).imageFileFilter;
+  var upload = multer(multerConfig).single('newProfilePicture');
+
+  if (item) {
+    existingImageUrl = item.imagePlaced;
+    uploadImage()
+      .then(updateItem)
+      .then(deleteOldImage)
+      .then(function () {
+        res.json(item);
+      })
+      .catch(function (err) {
+        res.status(422).send(err);
+      });
+  } else {
+    res.status(401).send({
+      message: 'Item not found'
+    });
+  }
+
+  function uploadImage () {
+    return new Promise(function (resolve, reject) {
+      upload(req, res, function (uploadError) {
+        if (uploadError) {
+          reject(errorHandler.getErrorMessage(uploadError));
+        } else {
+          resolve();
+        }
+      });
+    });
+  }
+
+  function updateItem () {
+    return new Promise(function (resolve, reject) {
+      item.imagePlaced = config.uploads.profile.image.dest + req.file.filename;
+      item.modified.push({ 'date': Date.now(), 'user': req.user, 'action': 'U' });
+      item.save(function (err, theitem) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+  }
+
+  function deleteOldImage () {
+    return new Promise(function (resolve, reject) {
+      if (existingImageUrl !== Item.schema.path('imagePlaced').defaultValue) {
+        fs.unlink(existingImageUrl, function (unlinkError) {
+          if (unlinkError) {
+            console.log(unlinkError);
+            reject({
+              message: 'Error occurred while deleting old item image'
+            });
+          } else {
+            resolve();
+          }
+        });
+      } else {
+        resolve();
+      }
+    });
+  }
+};
+
