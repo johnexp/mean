@@ -5,9 +5,9 @@
     .module('core')
     .controller('HeaderController', HeaderController);
 
-  HeaderController.$inject = ['$scope', '$state', 'Authentication', 'menuService', '$translate'];
+  HeaderController.$inject = ['$scope', '$state', 'Authentication', 'menuService', '$translate', '$mdSidenav'];
 
-  function HeaderController($scope, $state, Authentication, menuService, $translate) {
+  function HeaderController($scope, $state, Authentication, menuService, $translate, $mdSidenav) {
     var vm = this;
 
     vm.accountMenu = menuService.getMenu('account').items[0];
@@ -16,6 +16,10 @@
     vm.menu = menuService.getMenu('topbar');
     vm.sidebar = menuService.getMenu('sidebar');
     vm.changeLanguage = changeLanguage;
+
+    vm.toggleLeftMenu = function toggleLeftMenu() {
+      $mdSidenav('left').toggle();
+    }
 
     $scope.$on('$stateChangeSuccess', stateChangeSuccess);
 

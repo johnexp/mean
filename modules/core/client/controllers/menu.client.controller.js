@@ -4,9 +4,9 @@
   angular.module('core')
     .controller('MenuController', MenuController);
 
-  MenuController.$inject = ['Authentication', 'MenuMaterialService', '$mdSidenav'];
+  MenuController.$inject = ['Authentication', 'MenuMaterialService'];
 
-  function MenuController(Authentication, MenuMaterialService, $mdSidenav) {
+  function MenuController(Authentication, MenuMaterialService) {
 
     var vm = this;
 
@@ -40,10 +40,6 @@
       }
       return selected;
     };
-
-    vm.toggleLeftMenu = function toggleLeftMenu() {
-      $mdSidenav('left').toggle();
-    }
 
     function isOpen(section) {
       return MenuMaterialService.isSectionSelected(section);

@@ -279,3 +279,12 @@ body[dir=rtl] .menu-items .md-button {
 	transform: rotate(90deg);
 	-webkit-transform: rotate(90deg);
 }
+md-toolbar > md-menu-bar > md-menu, md-toolbar > md-menu-bar > md-menu > button {
+	height: 100%!important;
+}
+md-toolbar > md-menu-bar.md-default-theme md-menu.md-open > button, md-toolbar > md-menu-bar md-menu.md-open > button, md-toolbar > md-menu-bar.md-default-theme md-menu > button:focus, md-toolbar > md-menu-bar md-menu > button:focus {
+	background-color: rgba(0, 0, 0, 0.2);
+}
+#menu-button {
+	width: 60px;
+}
