@@ -1,32 +1,32 @@
-<section>
-  <div class="page-header">
-    <h1 translate>{{vm.itemType._id ? 'Edit Item type' : 'New Item type'}}</h1>
+<md-content layout="column" layout-padding>
+  <div layout="column">
+    <h2 class="md-title" translate>{{vm.itemType._id ? 'Edit Item type' : 'New Item type'}}</h2>
+    <md-divider></md-divider>
   </div>
-  <div class="col-md-12">
-    <form name="vm.form.itemTypeForm" class="form-horizontal" ng-submit="vm.save(vm.form.itemTypeForm.$valid)" novalidate>
-      <fieldset>
-        <div class="form-group" show-errors>
-          <label class="control-label" for="name" translate>Name</label>
-          <input name="name" type="text" ng-model="vm.itemType.name" id="name" class="form-control" placeholder="{{ 'Name' | translate }}" required>
-          <div ng-messages="vm.form.itemTypeForm.name.$error" role="alert">
-            <p class="help-block error-text" ng-message="required" translate>Item type name is required.</p>
-          </div>
+  <form name="vm.form.itemTypeForm" layout="column" ng-submit="vm.save(vm.form.itemTypeForm.$valid)" novalidate>
+    <div layout="row">
+      <md-input-container flex="50">
+        <label translate>Name</label>
+        <md-icon md-font-set="material-icons">person</md-icon>
+        <input name="name" type="text" ng-model="vm.itemType.name" id="name" required>
+        <div ng-messages="vm.form.itemTypeForm.name.$error">
+          <p ng-message="required" translate>Item type name is required.</p>
         </div>
-        <div class="form-group">
-          <div class="">
-            <label>
-              <span translate>Can Be Equiped</span>
-              <input type="checkbox" ng-model="vm.itemType.canBeEquiped" id="canBeEquiped" ng-checked="vm.itemType.canBeEquiped">
-            </label>
-          </div>
-        </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-raised" translate>{{vm.itemType._id ? 'Update' : 'Create'}}</button>
-        </div>
-        <div ng-show="vm.error" class="text-danger">
-          <strong ng-bind="vm.error"></strong>
-        </div>
-      </fieldset>
-    </form>
-  </div>
-</section>
+      </md-input-container>
+      <md-input-container>
+        <md-checkbox ng-model="vm.itemType.canBeEquiped">
+          <span translate>Can Be Equiped</span>
+        </md-checkbox>
+      </md-input-container>
+    </div>
+    <div layout="row" layout-align="end center">
+      <md-button type="submit" class="md-primary md-raised" translate>
+        <md-icon md-font-set="material-icons">save</md-icon>
+        {{vm.itemType._id ? 'Update' : 'Create'}}
+      </md-button>
+    </div>
+    <div ng-show="vm.error" class="text-danger">
+      <strong ng-bind="vm.error"></strong>
+    </div>
+  </form>
+</md-content>
