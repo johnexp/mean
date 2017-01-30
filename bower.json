@@ -23,7 +23,8 @@
     "angular-material-icons": "~0.7.0",
     "angular-ui-select": "^0.19.6",
     "angular-sanitize": "~1.6.1",
-    "angular-material-data-table": "^0.10.10"
+    "angular-material-data-table": "^0.10.10",
+    "angular-block-ui": "^0.2.2"
   },
   "overrides": {
     "jquery": {

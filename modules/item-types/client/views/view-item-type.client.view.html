@@ -1,19 +1,19 @@
 <md-content layout="column" layout-margin>
   <md-card layout="column">
-    <md-toolbar layout="row">
+    <md-toolbar layout="row" class="md-primary">
       <div class="md-toolbar-tools">
         <h2 class="md-title" ng-bind="vm.itemType.name"></h2>
         <div flex></div>
         <div ng-show="vm.itemType.isCurrentUserOwner">
           <md-fab-speed-dial md-open="false" md-direction="left" class="md-scale">
             <md-fab-trigger>
-              <md-button class="md-fab md-primary md-hue-2" ng-class="vm.$mdMedia('sm') || vm.$mdMedia('xs') ? 'md-mini' : ''" aria-label="actions">
+              <md-button class="md-fab md-primary md-hue-3" ng-class="vm.$mdMedia('sm') || vm.$mdMedia('xs') ? 'md-mini' : ''" aria-label="actions">
                 <md-icon md-font-set="material-icons">more_vert</md-icon>
                 <md-tooltip><span translate>Actions</span></md-tooltip>
               </md-button>
             </md-fab-trigger>
             <md-fab-actions>
-              <md-button class="md-fab md-mini md-primary md-hue-3" ui-sref="item-types.list">
+              <md-button class="md-fab md-mini md-primary md-hue-2" ui-sref="item-types.list">
                 <md-icon class="md-accent" md-font-set="material-icons">list</md-icon>
                 <md-tooltip><span translate>List</span></md-tooltip>
               </md-button>

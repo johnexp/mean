@@ -12,6 +12,7 @@ module.exports = {
         'public/lib/angular-material/angular-material.css',
         'public/lib/angular-ui-select/dist/select.css',
         'public/lib/angular-material-data-table/dist/md-data-table.min.css',
+        'public/lib/angular-block-ui/dist/angular-block-ui.min.css',
         // endbower
       ],
       js: [
@@ -34,6 +35,7 @@ module.exports = {
         'public/lib/angular-material/angular-material.js',
         'public/lib/angular-aria/angular-aria.js',
         'public/lib/angular-material-data-table/dist/md-data-table.min.js',
+        'public/lib/angular-block-ui/dist/angular-block-ui.js',
         // endbower
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']

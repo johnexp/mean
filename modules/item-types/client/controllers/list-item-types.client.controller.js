@@ -5,9 +5,9 @@
     .module('item-types')
     .controller('ItemTypesListController', ItemTypesListController);
 
-  ItemTypesListController.$inject = ['ListItemTypesService', '$translatePartialLoader', '$translate', 'PaginationService', '$filter'];
+  ItemTypesListController.$inject = ['ListItemTypesService', '$translatePartialLoader', '$translate', 'PaginationService', '$filter', 'Toast'];
 
-  function ItemTypesListController(ListItemTypesService, $translatePartialLoader, $translate, PaginationService, $filter) {
+  function ItemTypesListController(ListItemTypesService, $translatePartialLoader, $translate, PaginationService, $filter, Toast) {
     var vm = this;
     vm.pagination = PaginationService.getPagination();
     vm.allItemTypes = ListItemTypesService.query({ 'active': true });
@@ -15,6 +15,7 @@
     vm.order = 'name';
     vm.filterValue = [];
     vm.itemTypeFilter = { 'active': true };
+    Toast.info('Deu certo');
 
     vm.filterItems = function () {
       vm.itemTypes = $filter('filter')(vm.allItemTypes, vm.itemTypeFilter);

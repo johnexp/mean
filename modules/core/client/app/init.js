@@ -9,7 +9,9 @@
   angular
     .module(app.applicationModuleName)
     .config(bootstrapConfig)
-    .config(materialDesignConfig);
+    .config(materialDesignConfig)
+    .config(customToastConfig)
+    .config(blockUIConfig);
 
   bootstrapConfig.$inject = ['$compileProvider', '$locationProvider', '$httpProvider', '$logProvider'];
 
@@ -51,7 +53,7 @@
       'A700': '#040d15',
       'contrastDefaultColor': 'light',
       'contrastDarkColors': ['50', '100', '200', '300', '400', 'A100'],
-      'contrastLightColors': undefined
+      'contrastLightColors': 'light'
     };
     $mdThemingProvider
       .definePalette('customPrimary',
@@ -74,7 +76,7 @@
       'A700': '#23ffd4',
       'contrastDefaultColor': 'light',
       'contrastDarkColors': ['50', '100', '200', '300', '400', 'A100'],
-      'contrastLightColors': undefined
+      'contrastLightColors': 'light'
     };
     $mdThemingProvider
       .definePalette('customAccent',
@@ -97,16 +99,45 @@
       'A700': '#951627',
       'contrastDefaultColor': 'light',
       'contrastDarkColors': ['50', '100', '200', '300', '400', 'A100'],
-      'contrastLightColors': undefined
+      'contrastLightColors': 'light'
     };
     $mdThemingProvider
       .definePalette('customWarn',
         customWarn);
 
     $mdThemingProvider.theme('default')
-      .primaryPalette('customPrimary')
+      .primaryPalette('customPrimary', {
+        'default': '500',
+        'hue-1': '400',
+        'hue-2': '600',
+        'hue-3': '700'
+      })
       .accentPalette('customAccent')
       .warnPalette('customWarn');
+    $mdThemingProvider.theme('warning-toast');
+    $mdThemingProvider.theme('error-toast');
+    $mdThemingProvider.theme('info-toast');
+    $mdThemingProvider.theme('success-toast');
+  }
+
+  function customToastConfig($mdToastProvider) {
+    $mdToastProvider.addPreset('customToast', {
+      argOption: 'textContent',
+      methods: ['textContent', 'themeIcon', 'content', 'action', 'highlightAction', 'highlightClass', 'theme', 'parent'],
+      options: /* ngInject */ ["$mdToast", "$mdTheming", function ($mdToast, $mdTheming) {
+        return {
+          templateUrl: '/core/client/views/customToast.tmpl.html',
+          controller: 'CustomToastController',
+          theme: $mdTheming.defaultTheme(),
+          controllerAs: 'toast',
+          bindToController: true
+        };
+      }]
+    });
+  }
+
+  function blockUIConfig(blockUIConfig) {
+    blockUIConfig.template = '<div class=\"block-ui-overlay\"></div><div class=\"block-ui-message-container\" aria-live=\"assertive\" aria-atomic=\"true\"><div class=\"block-ui-message\" ng-class=\"$_blockUiMessageClass\"><div layout="row" layout-sm="column" layout-align="space-around"><md-progress-circular md-mode="indeterminate"></md-progress-circular></div></div></div>';
   }
 
   function init() {
