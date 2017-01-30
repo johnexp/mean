@@ -7,21 +7,17 @@ module.exports = {
     lib: {
       css: [
         // bower:css
-        // 'public/lib/bootstrap/dist/css/bootstrap.css',
-        // 'public/lib/bootstrap/dist/css/bootstrap-theme.css',
         'public/lib/angular-ui-notification/dist/angular-ui-notification.css',
         'public/lib/angular-material-icons/angular-material-icons.css',
         'public/lib/angular-material/angular-material.css',
-        // 'public/lib/bootstrap-material-design/dist/css/ripples.min.css',
-        // 'public/lib/bootstrap-material-design/dist/css/bootstrap-material-design.css',
         'public/lib/angular-ui-select/dist/select.css',
+        'public/lib/angular-material-data-table/dist/md-data-table.min.css',
         // endbower
       ],
       js: [
         // bower:js
         'public/lib/angular/angular.js',
         'public/lib/angular-animate/angular-animate.js',
-        // 'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
         'public/lib/ng-file-upload/ng-file-upload.js',
         'public/lib/angular-messages/angular-messages.js',
         'public/lib/angular-mocks/angular-mocks.js',
@@ -37,8 +33,7 @@ module.exports = {
         'public/lib/angular-sanitize/angular-sanitize.js',
         'public/lib/angular-material/angular-material.js',
         'public/lib/angular-aria/angular-aria.js',
-        // '//fezvrasta.github.io/bootstrap-material-design/dist/js/ripples.min.js',
-        // 'public/lib/bootstrap-material-design/dist/bootstrapMaterialDesign.js',
+        'public/lib/angular-material-data-table/dist/md-data-table.min.js',
         // endbower
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']

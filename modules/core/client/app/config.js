@@ -6,7 +6,7 @@
   var service = {
     applicationEnvironment: window.env,
     applicationModuleName: applicationModuleName,
-    applicationModuleVendorDependencies: ['ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ngMaterial', 'ngFileUpload', 'ui-notification', 'pascalprecht.translate', 'ui.mask', 'ngMdIcons', 'ui.select', 'ngSanitize'],
+    applicationModuleVendorDependencies: ['ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ngMaterial', 'ngFileUpload', 'ui-notification', 'pascalprecht.translate', 'ui.mask', 'ngMdIcons', 'ui.select', 'ngSanitize', 'md.data.table'],
     registerModule: registerModule
   };
 
@@ -34,22 +34,23 @@
     });
   });
 
-  angular.module('pascalprecht.translate').config(['$translateProvider', '$translatePartialLoaderProvider', function ($translateProvider, $translatePartialLoaderProvider) {
-    $translatePartialLoaderProvider.addPart('core');
-    $translateProvider.useLoader('$translatePartialLoader', {
-      urlTemplate: '/modules/{part}/client/i18n/{lang}.json'
-    });
+  angular.module('pascalprecht.translate')
+    .config(['$translateProvider', '$translatePartialLoaderProvider', function ($translateProvider, $translatePartialLoaderProvider) {
+      $translatePartialLoaderProvider.addPart('core');
+      $translateProvider.useLoader('$translatePartialLoader', {
+        urlTemplate: '/modules/{part}/client/i18n/{lang}.json'
+      });
 
-    // Definimos o idioma padrão
-    $translateProvider.preferredLanguage('en_US');
-    $translateProvider.forceAsyncReload(true);
-    $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
-    // Se você preferir que o idioma padrão seja detectado pelo idioma do browser
-    // use as linhas abaixo:
-    //
-    // $translateProvider
-    //  .uniformLanguageTag()
-    //  .determinePreferredLanguage();
-  }]);
+      // Definimos o idioma padrão
+      $translateProvider.preferredLanguage('en_US');
+      $translateProvider.forceAsyncReload(true);
+      $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
+      // Se você preferir que o idioma padrão seja detectado pelo idioma do browser
+      // use as linhas abaixo:
+      //
+      // $translateProvider
+      //  .uniformLanguageTag()
+      //  .determinePreferredLanguage();
+    }]);
 
 }(window));

@@ -12,7 +12,11 @@ module.exports = function(app) {
     .get(itemTypes.list)
     .post(itemTypes.create);
 
-  app.route('/api/item-types/:itemTypeId').all(itemTypesPolicy.isAllowed)
+  app.route('/api/item-types/:active').all(itemTypesPolicy.isAllowed)
+    .get(itemTypes.list)
+    .post(itemTypes.create);
+
+  app.route('/api/item-type/:itemTypeId').all(itemTypesPolicy.isAllowed)
     .get(itemTypes.read)
     .put(itemTypes.update)
     .delete(itemTypes.delete);

@@ -1,9 +1,9 @@
 {{!< layout}}
 
 {{#contentFor 'content'}}
-  <menu-app layout="column"></menu-app>
-  <div flex layout="column">
-    <header ng-include="'/modules/core/client/views/header.client.view.html'"></header>
-    <md-content ui-view></md-content>
+  <div layout="column">
+    <menu-app layout="column"></menu-app>
+    <md-toolbar ng-include="'/modules/core/client/views/header.client.view.html'" class="md-whiteframe-z2"></md-toolbar>
+    <md-content flex ui-view></md-content>
   </div>
 {{/contentFor}}

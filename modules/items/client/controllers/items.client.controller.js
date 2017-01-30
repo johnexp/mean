@@ -6,9 +6,9 @@
     .module('items')
     .controller('ItemsController', ItemsController);
 
-  ItemsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'itemResolve', '$translatePartialLoader', '$translate', 'ItemTypesService', 'RanksService', 'Upload', 'Notification'];
+  ItemsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'itemResolve', '$translatePartialLoader', '$translate', 'ItemTypesService', 'RanksService', 'Upload', 'Notification', '$timeout'];
 
-  function ItemsController ($scope, $state, $window, Authentication, item, $translatePartialLoader, $translate, ItemTypesService, RanksService, Upload) {
+  function ItemsController ($scope, $state, $window, Authentication, item, $translatePartialLoader, $translate, ItemTypesService, RanksService, Upload, $timeout) {
     var vm = this;
 
     vm.authentication = Authentication;

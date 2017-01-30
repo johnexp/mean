@@ -9,7 +9,7 @@
   ItemTypesService.$inject = ['$resource', '$log'];
 
   function ItemTypesService($resource, $log) {
-    var ItemType = $resource('/api/item-types/:itemTypeId', {
+    var ItemType = $resource('/api/item-type/:itemTypeId', {
       itemTypeId: '@_id'
     }, {
       update: {

@@ -11,7 +11,7 @@
 
     var self;
 
-    return self = {
+    self = {
       sections: menuService.getMenu('sidebar').items,
 
       selectSection: function (section) {
@@ -35,5 +35,7 @@
         return self.currentPage === page;
       }
     };
+
+    return self;
   }
 }());

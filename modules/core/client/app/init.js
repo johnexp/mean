@@ -8,7 +8,8 @@
   // Setting HTML5 Location Mode
   angular
     .module(app.applicationModuleName)
-    .config(bootstrapConfig);
+    .config(bootstrapConfig)
+    .config(materialDesignConfig);
 
   bootstrapConfig.$inject = ['$compileProvider', '$locationProvider', '$httpProvider', '$logProvider'];
 
@@ -26,9 +27,87 @@
     $logProvider.debugEnabled(app.applicationEnvironment !== 'production');
   }
 
+  materialDesignConfig.$inject = ['$mdThemingProvider'];
 
   // Then define the init function for starting up the application
   angular.element(document).ready(init);
+
+
+  function materialDesignConfig($mdThemingProvider) {
+    var customPrimary = {
+      '50': '#3a93de',
+      '100': '#2587d9',
+      '200': '#217ac3',
+      '300': '#1d6cae',
+      '400': '#1a5f98',
+      '500': '#165182',
+      '600': '#12436c',
+      '700': '#0f3656',
+      '800': '#0b2841',
+      '900': '#071b2b',
+      'A100': '#509fe1',
+      'A200': '#65abe5',
+      'A400': '#7bb7e9',
+      'A700': '#040d15',
+      'contrastDefaultColor': 'light',
+      'contrastDarkColors': ['50', '100', '200', '300', '400', 'A100'],
+      'contrastLightColors': undefined
+    };
+    $mdThemingProvider
+      .definePalette('customPrimary',
+        customPrimary);
+
+    var customAccent = {
+      '50': '#000a08',
+      '100': '#00231d',
+      '200': '#003d31',
+      '300': '#005646',
+      '400': '#00705a',
+      '500': '#00896f',
+      '600': '#00bc97',
+      '700': '#00d6ac',
+      '800': '#00efc0',
+      '900': '#0affcf',
+      'A100': '#00bc97',
+      'A200': '#00a383',
+      'A400': '#00896f',
+      'A700': '#23ffd4',
+      'contrastDefaultColor': 'light',
+      'contrastDarkColors': ['50', '100', '200', '300', '400', 'A100'],
+      'contrastLightColors': undefined
+    };
+    $mdThemingProvider
+      .definePalette('customAccent',
+        customAccent);
+
+    var customWarn = {
+      '50': '#f4b5be',
+      '100': '#f19faa',
+      '200': '#ee8996',
+      '300': '#ea7382',
+      '400': '#e75c6f',
+      '500': '#e4465b',
+      '600': '#e13047',
+      '700': '#d81f38',
+      '800': '#c11c32',
+      '900': '#ab192c',
+      'A100': '#f7ccd1',
+      'A200': '#fbe2e5',
+      'A400': '#fef8f9',
+      'A700': '#951627',
+      'contrastDefaultColor': 'light',
+      'contrastDarkColors': ['50', '100', '200', '300', '400', 'A100'],
+      'contrastLightColors': undefined
+    };
+    $mdThemingProvider
+      .definePalette('customWarn',
+        customWarn);
+
+    $mdThemingProvider.theme('default')
+      .primaryPalette('customPrimary')
+      .accentPalette('customAccent')
+      .warnPalette('customWarn');
+  }
 
   function init() {
     // Fixing facebook bug with redirect

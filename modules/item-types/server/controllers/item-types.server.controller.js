@@ -85,7 +85,12 @@ exports.delete = function(req, res) {
  * List of Item types
  */
 exports.list = function(req, res) {
-  ItemType.find().sort('-created').populate('user', 'displayName').exec(function(err, itemTypes) {
+  var objFilter = {};
+  if (req.param('active')) {
+    objFilter.active = req.param('active');
+  }
+
+  ItemType.find(objFilter).sort('-created').populate('user', 'displayName').exec(function(err, itemTypes) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -95,6 +100,7 @@ exports.list = function(req, res) {
     }
   });
 };
+
 
 /**
  * Item type middleware

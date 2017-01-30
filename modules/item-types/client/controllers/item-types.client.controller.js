@@ -6,9 +6,9 @@
     .module('item-types')
     .controller('ItemTypesController', ItemTypesController);
 
-  ItemTypesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'itemTypeResolve', '$translatePartialLoader', '$translate'];
+  ItemTypesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'itemTypeResolve', '$translatePartialLoader', '$translate', '$mdMedia'];
 
-  function ItemTypesController ($scope, $state, $window, Authentication, itemType, $translatePartialLoader, $translate) {
+  function ItemTypesController ($scope, $state, $window, Authentication, itemType, $translatePartialLoader, $translate, $mdMedia) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -17,6 +17,7 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+    vm.$mdMedia = $mdMedia;
 
     $translatePartialLoader.addPart('item-types');
     $translate.refresh();

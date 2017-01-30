@@ -1,53 +1,79 @@
-<section>
-  <div class="page-header">
-    <h1 ng-bind="vm.itemType.name"></h1>
+<md-content layout="column" layout-margin>
+  <md-card layout="column">
+    <md-toolbar layout="row">
+      <div class="md-toolbar-tools">
+        <h2 class="md-title" ng-bind="vm.itemType.name"></h2>
+        <div flex></div>
+        <div ng-show="vm.itemType.isCurrentUserOwner">
+          <md-fab-speed-dial md-open="false" md-direction="left" class="md-scale">
+            <md-fab-trigger>
+              <md-button class="md-fab md-primary md-hue-2" ng-class="vm.$mdMedia('sm') || vm.$mdMedia('xs') ? 'md-mini' : ''" aria-label="actions">
+                <md-icon md-font-set="material-icons">more_vert</md-icon>
+                <md-tooltip><span translate>Actions</span></md-tooltip>
+              </md-button>
+            </md-fab-trigger>
+            <md-fab-actions>
+              <md-button class="md-fab md-mini md-primary md-hue-3" ui-sref="item-types.list">
+                <md-icon class="md-accent" md-font-set="material-icons">list</md-icon>
+                <md-tooltip><span translate>List</span></md-tooltip>
+              </md-button>
+              <md-button class="md-fab md-mini md-accent" ui-sref="item-types.edit({ itemTypeId: vm.itemType._id })">
+                <md-icon class="md-accent" md-font-set="material-icons">edit</md-icon>
+                <md-tooltip><span translate>Edit</span></md-tooltip>
+              </md-button>
+              <md-button class="md-fab md-mini md-warn" ng-click="vm.remove()">
+                <md-icon md-font-set="material-icons">delete</md-icon>
+                <md-tooltip><span translate>Delete</span></md-tooltip>
+              </md-button>
+            </md-fab-actions>
+          </md-fab-speed-dial>
+        </div>
+      </div>
+    </md-toolbar>
+    <md-divider></md-divider>
+    <md-list class="md-dense" layout-padding flex>
+      <md-list-item class="md-list-item-text" layout="row" layout-padding>
+        <p class="md-subhead" flex="30" translate>Name</p>
+        <p class="md-caption" ng-bind="vm.itemType.name"></p>
+      </md-list-item>
+      <md-list-item class="md-list-item-text" layout="row" layout-padding>
+        <p class="md-subhead" flex="30" translate>Can Be Equiped</p>
+        <p class="md-caption" ng-bind="vm.itemType.canBeEquiped"></p>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item class="md-list-item-text md-no-proxy" layout="row" layout-padding layout-align="none start">
+        <p class="md-subhead" flex="30" translate>History</p>
+        <md-table-container>
+          <table md-table>
+            <thead md-head>
+            <tr md-row>
+              <th md-column><span translate>User</span></th>
+              <th md-column><span translate>Date</span></th>
+              <th md-column><span translate>Action</span></th>
+            </tr>
+            </thead>
+            <tbody md-body>
+            <tr md-row ng-repeat="modified in vm.itemType.modified">
+              <td md-cell><md-button class="md-primary" ui-sref="admin.user({ userId: modified.user._id })">{{modified.user.displayName}}</md-button></td>
+              <td md-cell>{{modified.date | date: "dd/MM/yyyy HH:mm:ss"}}</td>
+              <td md-cell>{{modified.action | translate}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </md-list-item>
+    </md-list>
+  </md-card>
+  <div>
+    <small>
+      <em>
+        {{ "Created on" | translate }}
+        <span ng-bind="vm.itemType.created | date:'mediumDate'"></span>
+        {{ "by" | translate }}
+        <span ng-if="vm.itemType.user" ng-bind="vm.itemType.user.displayName"></span>
+        <span ng-if="!vm.itemType.user" translate>Deleted User</span>
+      </em>
+    </small>
+    <p ng-bind="vm.itemType.content"></p>
   </div>
-  <div class="object-values">
-    <dl class="dl-horizontal">
-      <dt translate>Name</dt>
-      <dd ng-bind="vm.itemType.name"></dd>
-      <dt translate>Can Be Equiped</dt>
-      <dd ng-bind="vm.itemType.canBeEquiped"></dd>
-      <dt translate>History</dt>
-      <dd>
-        <table class="table table-condensed">
-          <thead>
-          <tr>
-            <th translate>User</th>
-            <th translate>Date</th>
-            <th translate>Action</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr ng-repeat="modified in vm.itemType.modified">
-            <td><a ui-sref="admin.user({ userId: modified.user._id })">{{modified.user.displayName}}</a></td>
-            <td>{{modified.date | date: "dd/MM/yyyy HH:mm:ss"}}</td>
-            <td translate>{{modified.action}}</td>
-          </tr>
-          </tbody>
-        </table>
-      </dd>
-    </dl>
-  </div>
-  <div class="pull-right"
-       ng-show="vm.itemType.isCurrentUserOwner">
-    <a class="btn btn-primary"
-       ui-sref="item-types.edit({ itemTypeId: vm.itemType._id })">
-      <i class="glyphicon glyphicon-edit"></i>
-    </a>
-    <a class="btn btn-primary" ng-click="vm.remove()">
-      <i class="glyphicon glyphicon-trash"></i>
-    </a>
-  </div>
-  <small>
-    <em class="text-muted">
-      {{ "Posted on" | translate }}
-      <span ng-bind="vm.itemType.created | date:'mediumDate'"></span>
-      {{ "by" | translate }}
-      <span ng-if="vm.itemType.user"
-            ng-bind="vm.itemType.user.displayName"></span>
-      <span ng-if="!vm.itemType.user" translate>Deleted User</span>
-    </em>
-  </small>
-  <p class="lead" ng-bind="vm.itemType.content"></p>
-</section>
+</md-content>

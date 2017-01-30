@@ -5,9 +5,9 @@
     .module('core')
     .controller('HeaderController', HeaderController);
 
-  HeaderController.$inject = ['$scope', '$state', 'Authentication', 'menuService', '$translate', '$mdSidenav'];
+  HeaderController.$inject = ['$scope', '$state', 'Authentication', 'menuService', '$mdSidenav', '$translatePartialLoader', '$translate'];
 
-  function HeaderController($scope, $state, Authentication, menuService, $translate, $mdSidenav) {
+  function HeaderController($scope, $state, Authentication, menuService, $mdSidenav, $translatePartialLoader, $translate) {
     var vm = this;
 
     vm.accountMenu = menuService.getMenu('account').items[0];
@@ -16,16 +16,23 @@
     vm.menu = menuService.getMenu('topbar');
     vm.sidebar = menuService.getMenu('sidebar');
     vm.changeLanguage = changeLanguage;
+    vm.stateIsAbstract = stateIsAbstract;
+
+    $translatePartialLoader.addPart('core');
+    $translate.refresh();
 
     vm.toggleLeftMenu = function toggleLeftMenu() {
       $mdSidenav('left').toggle();
-    }
+    };
 
     $scope.$on('$stateChangeSuccess', stateChangeSuccess);
 
+    function stateIsAbstract(state) {
+      return $state.get(state).hasOwnProperty('abstract');
+    }
+
     function stateChangeSuccess() {
-      // Collapsing the menu after navigation
-      vm.isCollapsed = false;
+      $mdSidenav('left').close();
     }
 
     function changeLanguage(langKey) {

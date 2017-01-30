@@ -18,7 +18,10 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/item-types',
       permissions: '*'
     }, {
-      resources: '/api/item-types/:itemTypeId',
+      resources: '/api/item-type/:itemTypeId',
+      permissions: '*'
+    }, {
+      resources: '/api/item-types/:active',
       permissions: '*'
     }]
   }, {
@@ -27,7 +30,10 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/item-types',
       permissions: ['get']
     }, {
-      resources: '/api/item-types/:itemTypeId',
+      resources: '/api/item-type/:itemTypeId',
+      permissions: ['get']
+    }, {
+      resources: '/api/item-types/:active',
       permissions: ['get']
     }]
   }]);

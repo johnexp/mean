@@ -3,21 +3,142 @@
     <h2 class="md-title" translate>Item types</h2>
     <md-divider></md-divider>
   </div>
-  <div class="list-group">
-    <a ng-repeat="itemType in vm.itemTypes"
-       ui-sref="item-types.view({ itemTypeId: itemType._id })"
-       class="list-group-item">
-      <small class="list-group-item-text">
-        {{ "Posted on" | translate }}
-        <span ng-bind="itemType.created | date:'mediumDate'"></span>
-        {{ "by" | translate }}
-        <span ng-if="itemType.user" ng-bind="itemType.user.displayName"></span>
-        <span ng-if="!itemType.user" translate>Deleted User</span>
-      </small>
-      <h4 class="list-group-item-heading" ng-bind="itemType.name"></h4>
-    </a>
-  </div>
+  <h3 class="md-subheader">Filter</h3>
+  <form name="vm.form.itemTypeFilter" ng-submit="vm.filterSimple()">
+    <div layout="row">
+      <md-input-container flex="50">
+        <label translate>Search</label>
+        <md-icon md-font-set="material-icons">filter_list</md-icon>
+        <input name="value" type="text" ng-model="vm.itemTypeFilter.value">
+      </md-input-container>
+      <md-input-container flex="50">
+        <label translate>Active</label>
+        <md-icon md-font-set="material-icons">check</md-icon>
+        <md-select ng-model="vm.itemTypeFilter.active" ng-change="vm.refilter()">
+          <md-option ng-value=""><span translate>All</span></md-option>
+          <md-option ng-value="true" translate>Yes</md-option>
+          <md-option ng-value="false" translate>No</md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+  </form>
+  <md-divider></md-divider>
+  <md-list class="md-dense" flex>
+    <md-list-item class="md-2-line secondary-button-padding" ng-repeat="itemType in vm.itemTypes | filter: { 'name': vm.itemTypeFilter.value }">
+      <div class="md-list-item-text" layout="column">
+        <h3>{{ itemType.name }}</h3>
+        <p class="md-caption">
+          {{ "Posted on" | translate }}{{ itemType.user.name }}
+          <span ng-bind="itemType.created | date:'mediumDate'"></span>
+          {{ "by" | translate }}
+          <span ng-if="itemType.user" ng-bind="itemType.user.displayName"></span>
+          <span ng-if="!itemType.user" translate>Deleted User</span>
+        </p>
+        <md-menu class="md-secondary">
+          <md-button ng-click="$mdOpenMenu()" class="md-icon-button">
+            <md-icon md-font-set="material-icons">more_vert</md-icon>
+            <md-tooltip><span translate>Actions</span></md-tooltip>
+          </md-button>
+          <md-menu-content>
+            <md-menu-item>
+              <md-button ui-sref="item-types.view({ itemTypeId: itemType._id })">
+                <md-icon class="md-primary" md-font-set="material-icons">remove_red_eye</md-icon>
+                {{ 'View' | translate }}
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ui-sref="item-types.edit({ itemTypeId: itemType._id })">
+                <md-icon class="md-accent" md-font-set="material-icons">edit</md-icon>
+                {{ 'Edit' | translate }}
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button>
+                <md-icon class="md-warn" md-font-set="material-icons">delete</md-icon>
+                {{ 'Delete' | translate }}
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+      </div>
+      <md-divider></md-divider>
+    </md-list-item>
+  </md-list>
   <div class="alert alert-warning text-center" ng-if="vm.itemTypes.$resolved && !vm.itemTypes.length">
     {{ "No Item types yet, why don't you" }} <a ui-sref="item-types.create" translate>create one</a>?
   </div>
+  <div layout-margin></div>
+  <h3 class="md-subheader">Filter</h3>
+  <form name="vm.form.itemTypeFilter" form-on-change="vm.filterItems()">
+    <div layout="row" layout-margin>
+      <md-input-container flex="50">
+        <label>{{ 'Name' | translate }}</label>
+        <md-icon md-font-set="material-icons">person</md-icon>
+        <input name="name" type="text" ng-model="vm.itemTypeFilter.name">
+      </md-input-container>
+      <md-input-container flex="25">
+        <label translate>Active</label>
+        <md-icon md-font-set="material-icons">check</md-icon>
+        <md-select ng-model="vm.itemTypeFilter.active" ng-change="vm.refilter()">
+          <md-option ng-value="all" translate>All</md-option>
+          <md-option ng-value="true" translate>Yes</md-option>
+          <md-option ng-value="false" translate>No</md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container flex="25">
+        <label translate>Can Be Equiped</label>
+        <md-icon md-font-set="material-icons">check</md-icon>
+        <md-select ng-model="vm.itemTypeFilter.canBeEquiped">
+          <md-option ng-value="" translate></md-option>
+          <md-option ng-value="true" translate>Yes</md-option>
+          <md-option ng-value="false" translate>No</md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+  </form>
+  <md-divider></md-divider>
+  <md-table-container>
+    <table md-table>
+      <thead md-head md-order="vm.order">
+        <tr md-row>
+          <th md-column md-order-by="name">{{ 'Name' | translate }}</th>
+          <th md-column>{{ 'Actions' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody md-body>
+        <tr md-row ng-repeat="itemType in vm.itemTypes | orderBy: vm.order | limitTo: vm.pagination.limit: (vm.pagination.page - 1) * vm.pagination.limit">
+          <td md-cell>{{ itemType.name | translate }}</td>
+          <td md-cell>
+            <md-menu>
+              <md-button ng-click="$mdOpenMenu()" class="md-icon-button">
+                <md-icon md-font-set="material-icons">more_vert</md-icon>
+                <md-tooltip><span translate>Actions</span></md-tooltip>
+              </md-button>
+              <md-menu-content>
+                <md-menu-item>
+                  <md-button ui-sref="item-types.view({ itemTypeId: itemType._id })">
+                    <md-icon class="md-primary" md-font-set="material-icons">remove_red_eye</md-icon>
+                    {{ 'View' | translate }}
+                  </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                  <md-button ui-sref="item-types.edit({ itemTypeId: itemType._id })">
+                    <md-icon class="md-accent" md-font-set="material-icons">edit</md-icon>
+                    {{ 'Edit' | translate }}
+                  </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                  <md-button>
+                    <md-icon class="md-warn" md-font-set="material-icons">delete</md-icon>
+                    {{ 'Delete' | translate }}
+                  </md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </md-table-container>
+  <md-table-pagination md-limit="vm.pagination.limit" md-limit-options="vm.pagination.limitOptions" md-label="{{vm.pagination.label}}" md-page="vm.pagination.page" md-total="{{vm.itemTypes.length}}" md-page-select></md-table-pagination>
 </md-content>

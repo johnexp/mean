@@ -20,9 +20,13 @@
       </md-input-container>
     </div>
     <div layout="row" layout-align="end center">
-      <md-button type="submit" class="md-primary md-raised" translate>
+      <md-button type="button" class="md-raised md-warn" go-back-btn>
+        <md-icon md-font-set="material-icons">cancel</md-icon>
+        {{'Cancel' | translate}}
+      </md-button>
+      <md-button type="submit" class="md-primary md-raised">
         <md-icon md-font-set="material-icons">save</md-icon>
-        {{vm.itemType._id ? 'Update' : 'Create'}}
+        {{vm.itemType._id ? 'Update' : 'Create' | translate}}
       </md-button>
     </div>
     <div ng-show="vm.error" class="text-danger">
