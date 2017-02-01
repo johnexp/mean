@@ -11,6 +11,7 @@
     $stateProvider
       .state('item-types', {
         abstract: true,
+        parent: 'home',
         url: '/item-types',
         template: '<ui-view/>'
       })

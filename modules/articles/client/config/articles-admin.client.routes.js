@@ -11,6 +11,7 @@
     $stateProvider
       .state('admin.articles', {
         abstract: true,
+        parent: 'home',
         url: '/articles',
         template: '<ui-view/>'
       })

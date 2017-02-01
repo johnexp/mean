@@ -5,9 +5,9 @@
     .module('core')
     .controller('HeaderController', HeaderController);
 
-  HeaderController.$inject = ['$scope', '$state', 'Authentication', 'menuService', '$mdSidenav', '$translatePartialLoader', '$translate'];
+  HeaderController.$inject = ['$scope', '$state', 'Authentication', 'menuService', '$mdSidenav', '$translatePartialLoader', '$translate', '$mdComponentRegistry'];
 
-  function HeaderController($scope, $state, Authentication, menuService, $mdSidenav, $translatePartialLoader, $translate) {
+  function HeaderController($scope, $state, Authentication, menuService, $mdSidenav, $translatePartialLoader, $translate, $mdComponentRegistry) {
     var vm = this;
 
     vm.accountMenu = menuService.getMenu('account').items[0];
@@ -32,7 +32,9 @@
     }
 
     function stateChangeSuccess() {
-      $mdSidenav('left').close();
+      if ($mdComponentRegistry.get('left')) {
+        $mdSidenav('left').close();
+      }
     }
 
     function changeLanguage(langKey) {

@@ -11,6 +11,7 @@
     $stateProvider
       .state('adventures', {
         abstract: true,
+        parent: 'home',
         url: '/adventures',
         template: '<ui-view/>'
       })

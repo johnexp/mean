@@ -13,6 +13,7 @@
     $stateProvider
       .state('settings', {
         abstract: true,
+        parent: 'home',
         url: '/settings',
         templateUrl: '/modules/users/client/views/settings/settings.client.view.html',
         controller: 'SettingsController',
@@ -59,6 +60,7 @@
       })
       .state('authentication', {
         abstract: true,
+        parent: 'home',
         url: '/authentication',
         templateUrl: '/modules/users/client/views/authentication/authentication.client.view.html',
         controller: 'AuthenticationController',
@@ -84,6 +86,7 @@
       })
       .state('password', {
         abstract: true,
+        parent: 'home',
         url: '/password',
         template: '<ui-view/>'
       })
@@ -98,6 +101,7 @@
       })
       .state('password.reset', {
         abstract: true,
+        parent: 'home',
         url: '/reset',
         template: '<ui-view/>'
       })
