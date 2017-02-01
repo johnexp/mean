@@ -124,9 +124,9 @@
     $mdToastProvider.addPreset('customToast', {
       argOption: 'textContent',
       methods: ['textContent', 'themeIcon', 'content', 'action', 'highlightAction', 'highlightClass', 'theme', 'parent'],
-      options: /* ngInject */ ["$mdToast", "$mdTheming", function ($mdToast, $mdTheming) {
+      options: /* ngInject */ ['$mdToast', '$mdTheming', function ($mdToast, $mdTheming) {
         return {
-          templateUrl: '/core/client/views/customToast.tmpl.html',
+          templateUrl: '/modules/core/client/views/custom-toast.tmpl.html',
           controller: 'CustomToastController',
           theme: $mdTheming.defaultTheme(),
           controllerAs: 'toast',
@@ -137,7 +137,7 @@
   }
 
   function blockUIConfig(blockUIConfig) {
-    blockUIConfig.template = '<div class=\"block-ui-overlay\"></div><div class=\"block-ui-message-container\" aria-live=\"assertive\" aria-atomic=\"true\"><div class=\"block-ui-message\" ng-class=\"$_blockUiMessageClass\"><div layout="row" layout-sm="column" layout-align="space-around"><md-progress-circular md-mode="indeterminate"></md-progress-circular></div></div></div>';
+    blockUIConfig.template = '<div class=\"block-ui-overlay\"></div><div class=\"block-ui-message-container\" aria-live=\"assertive\" aria-atomic=\"true\"><div layout="row" layout-sm="column" layout-align="space-around"><md-progress-circular md-mode="indeterminate"></md-progress-circular></div></div>';
   }
 
   function init() {

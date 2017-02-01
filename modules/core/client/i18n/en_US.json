@@ -54,5 +54,12 @@
   "View": "View",
   "Edit": "Edit",
   "Delete": "Delete",
-  "List": "List"
+  "List": "List",
+  "confirm_deletion": "Are you sure to delete this item?",
+  "delete_item": "Delete Item",
+  "No records": "No records",
+  "confirm_inactivation": "Are you sure to change item activation state?",
+  "inactivate_item": "Change Activation State",
+  "Inactivate": "Inactivate",
+  "Activate": "Activate"
 }

@@ -11,12 +11,12 @@
 
     self = {
       toast: toast,
-      aviso: aviso,
-      erro: erro,
+      warning: warning,
+      error: error,
       info: info,
-      sucesso: sucesso,
-      bloquearTela: bloquearTela,
-      desbloquearTela: desbloquearTela
+      success: success,
+      blockScreen: blockScreen,
+      unblockScreen: unblockScreen
     };
 
     function toast(mensagem, tema, iconeTema) {
@@ -28,11 +28,11 @@
         .themeIcon(iconeTema));
     }
 
-    function aviso(mensagem) {
+    function warning(mensagem) {
       return toast(mensagem, 'warning-toast', 'warning');
     }
 
-    function erro(mensagem) {
+    function error(mensagem) {
       return toast(mensagem, 'error-toast', 'error');
     }
 
@@ -40,15 +40,15 @@
       return toast(mensagem, 'info-toast', 'info');
     }
 
-    function sucesso(mensagem) {
+    function success(mensagem) {
       return toast(mensagem, 'success-toast', 'done');
     }
 
-    function bloquearTela() {
+    function blockScreen() {
       blockUI.start('Aguarde...');
     }
 
-    function desbloquearTela() {
+    function unblockScreen() {
       blockUI.stop();
     }
 

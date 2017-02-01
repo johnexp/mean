@@ -24,6 +24,10 @@
   </form>
   <md-divider></md-divider>
   <md-list class="md-dense" flex>
+    <div ng-if="!vm.itemTypes || (vm.itemTypes | filter: { 'name': vm.itemTypeFilter.value }).length == 0">
+      <md-subheader class="md-no-sticky" layout="row" layout-align="center center">{{ 'No records' | translate }}</md-subheader>
+      <md-divider></md-divider>
+    </div>
     <md-list-item class="md-2-line secondary-button-padding" ng-repeat="itemType in vm.itemTypes | filter: { 'name': vm.itemTypeFilter.value }">
       <div class="md-list-item-text" layout="column">
         <h3>{{ itemType.name }}</h3>
@@ -53,7 +57,7 @@
               </md-button>
             </md-menu-item>
             <md-menu-item>
-              <md-button>
+              <md-button ng-click="vm.changeState($event, itemType)">
                 <md-icon class="md-warn" md-font-set="material-icons">delete</md-icon>
                 {{ 'Delete' | translate }}
               </md-button>
@@ -80,7 +84,7 @@
         <label translate>Active</label>
         <md-icon md-font-set="material-icons">check</md-icon>
         <md-select ng-model="vm.itemTypeFilter.active" ng-change="vm.refilter()">
-          <md-option ng-value="all" translate>All</md-option>
+          <md-option ng-value="" translate>All</md-option>
           <md-option ng-value="true" translate>Yes</md-option>
           <md-option ng-value="false" translate>No</md-option>
         </md-select>
@@ -88,7 +92,7 @@
       <md-input-container flex="25">
         <label translate>Can Be Equiped</label>
         <md-icon md-font-set="material-icons">check</md-icon>
-        <md-select ng-model="vm.itemTypeFilter.canBeEquiped">
+        <md-select ng-model="vm.itemTypeFilter.canBeEquiped" ng-change="vm.filterItems()">
           <md-option ng-value="" translate></md-option>
           <md-option ng-value="true" translate>Yes</md-option>
           <md-option ng-value="false" translate>No</md-option>
@@ -108,34 +112,58 @@
       <tbody md-body>
         <tr md-row ng-repeat="itemType in vm.itemTypes | orderBy: vm.order | limitTo: vm.pagination.limit: (vm.pagination.page - 1) * vm.pagination.limit">
           <td md-cell>{{ itemType.name | translate }}</td>
-          <td md-cell>
-            <md-menu>
-              <md-button ng-click="$mdOpenMenu()" class="md-icon-button">
-                <md-icon md-font-set="material-icons">more_vert</md-icon>
-                <md-tooltip><span translate>Actions</span></md-tooltip>
+          <td md-cell layout="row">
+            <div class="show-gt-sm hide-xs hide-sm">
+              <md-button ui-sref="item-types.view({ itemTypeId: itemType._id })" class="md-icon-button">
+                <md-icon class="md-primary" md-font-set="material-icons">remove_red_eye</md-icon>
+                <md-tooltip>{{ 'View' | translate }}</md-tooltip>
               </md-button>
-              <md-menu-content>
-                <md-menu-item>
-                  <md-button ui-sref="item-types.view({ itemTypeId: itemType._id })">
-                    <md-icon class="md-primary" md-font-set="material-icons">remove_red_eye</md-icon>
-                    {{ 'View' | translate }}
-                  </md-button>
-                </md-menu-item>
-                <md-menu-item>
-                  <md-button ui-sref="item-types.edit({ itemTypeId: itemType._id })">
-                    <md-icon class="md-accent" md-font-set="material-icons">edit</md-icon>
-                    {{ 'Edit' | translate }}
-                  </md-button>
-                </md-menu-item>
-                <md-menu-item>
-                  <md-button>
-                    <md-icon class="md-warn" md-font-set="material-icons">delete</md-icon>
-                    {{ 'Delete' | translate }}
-                  </md-button>
-                </md-menu-item>
-              </md-menu-content>
-            </md-menu>
+              <md-button ui-sref="item-types.edit({ itemTypeId: itemType._id })" class="md-icon-button">
+                <md-icon class="md-accent" md-font-set="material-icons">edit</md-icon>
+                <md-tooltip>{{ 'Edit' | translate }}</md-tooltip>
+              </md-button>
+              <md-button ng-click="vm.changeState($event, itemType)" class="md-icon-button">
+                <md-icon class="md-warn" md-font-set="material-icons">delete</md-icon>
+                <md-tooltip>{{ 'Delete' | translate }}</md-tooltip>
+              </md-button>
+            </div>
+            <div class="hide-gt-sm">
+              <md-menu>
+                <md-button ng-click="$mdOpenMenu()" class="md-icon-button">
+                  <md-icon md-font-set="material-icons">more_vert</md-icon>
+                  <md-tooltip><span translate>Actions</span></md-tooltip>
+                </md-button>
+                <md-menu-content>
+                  <md-menu-item>
+                    <md-button ui-sref="item-types.view({ itemTypeId: itemType._id })">
+                      <md-icon class="md-primary" md-font-set="material-icons">remove_red_eye</md-icon>
+                      {{ 'View' | translate }}
+                    </md-button>
+                  </md-menu-item>
+                  <md-menu-item>
+                    <md-button ui-sref="item-types.edit({ itemTypeId: itemType._id })">
+                      <md-icon class="md-accent" md-font-set="material-icons">edit</md-icon>
+                      {{ 'Edit' | translate }}
+                    </md-button>
+                  </md-menu-item>
+                  <md-menu-item>
+                    <md-button ng-click="vm.changeState($event, itemType)">
+                      <md-icon ng-if="itemType.active === true" class="md-warn" md-font-set="material-icons">remove_circle</md-icon>
+                      <md-icon ng-if="itemType.active === false" class="md-accent md-hue-2" md-font-set="material-icons">check_circle</md-icon>
+                      {{ itemType.active === true ? 'Inactivate' : 'Activate' | translate }}
+                    </md-button>
+                  </md-menu-item>
+                </md-menu-content>
+              </md-menu>
+            </div>
           </td>
+        </tr>
+      </tbody>
+    </table>
+    <table md-table ng-if="!vm.itemTypes || vm.itemTypes.length == 0">
+      <tbody md-body>
+        <tr md-row>
+          <td md-cell class="no-records-cell" layout="row" layout-align="center center"><h2 class="md-subheader" translate>No records</h2></td>
         </tr>
       </tbody>
     </table>

@@ -296,3 +296,6 @@ body[dir=rtl] .menu-items .md-button {
 .topbar button {
 	color: #FFF;
 }
+.no-records-cell * {
+	margin: 8px 0;
+}
