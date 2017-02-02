@@ -1,6 +1,4 @@
 {
-	"allo_allo": "Olá, Olá!",
-	"always_a_pleasure": "Its always a pleasure to watch Pulp Fiction.",
   "character-types": {
     "title": "Tipos de Personagens",
     "list": "Listar",
@@ -61,5 +59,7 @@
   "confirm_inactivation": "Deseja mudar o estado de ativação do registro?",
   "inactivate_item": "Mudar Estado de Ativação",
   "Inactivate": "Inativar",
-  "Activate": "Ativar"
+  "Activate": "Ativar",
+  "Item successfully inactivated": "Registro inativado com sucesso!",
+  "Item successfully deleted": "Registro removido com sucesso!"
 }

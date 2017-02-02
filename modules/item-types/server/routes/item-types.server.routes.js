@@ -9,8 +9,7 @@ var itemTypesPolicy = require('../policies/item-types.server.policy'),
 module.exports = function(app) {
   // Item types Routes
   app.route('/api/item-types').all(itemTypesPolicy.isAllowed)
-    .get(itemTypes.list)
-    .post(itemTypes.create);
+    .get(itemTypes.list);
 
   app.route('/api/item-types/:active').all(itemTypesPolicy.isAllowed)
     .get(itemTypes.list)
@@ -20,6 +19,9 @@ module.exports = function(app) {
     .get(itemTypes.read)
     .put(itemTypes.update)
     .delete(itemTypes.delete);
+
+  app.route('/api/item-type').all(itemTypesPolicy.isAllowed)
+    .post(itemTypes.create);
 
   // Finish by binding the Item type middleware
   app.param('itemTypeId', itemTypes.itemTypeByID);

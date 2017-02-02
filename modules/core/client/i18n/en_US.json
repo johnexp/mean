@@ -1,6 +1,4 @@
 {
-	"allo_allo": "Hello, hello!",
-	"always_a_pleasure": "Its always a pleasure to watch Pulp Fiction.",
   "character-types": {
     "title": "Character types",
     "list": "List",
@@ -61,5 +59,7 @@
   "confirm_inactivation": "Are you sure to change item activation state?",
   "inactivate_item": "Change Activation State",
   "Inactivate": "Inactivate",
-  "Activate": "Activate"
+  "Activate": "Activate",
+  "Item successfully inactivated": "Item successfully inactivated",
+  "Item successfully deleted": "Item successfully deleted"
 }

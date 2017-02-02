@@ -15,42 +15,58 @@
     vm.order = 'name';
     vm.filterValue = [];
     vm.itemTypeFilter = { 'active': true };
+    vm.filterItems = filterItems;
+    vm.refilter = refilter;
+    vm.changeState = changeState;
+    vm.remove = remove;
 
-    vm.filterItems = function () {
-      angular.forEach(vm.itemTypeFilter, function(value, key) {
+    function filterItems() {
+      angular.forEach(vm.itemTypeFilter, function (value, key) {
         if (value === '') {
           delete vm.itemTypeFilter[key];
         }
       });
       vm.itemTypes = $filter('filter')(vm.allItemTypes, vm.itemTypeFilter);
-    };
+    }
 
-    vm.refilter = function() {
-      vm.allItemTypes = ListItemTypesService.query(
-        { 'active': vm.itemTypeFilter.active },
-        function () {
-          vm.itemTypes = vm.allItemTypes;
-          vm.itemTypeFilter = { 'active': vm.itemTypeFilter.active };
-        }
-      );
-    };
+    function refilter() {
+      vm.allItemTypes = ListItemTypesService.query({ 'active': vm.itemTypeFilter.active }, function () {
+        vm.itemTypes = vm.allItemTypes;
+        vm.itemTypeFilter = { 'active': vm.itemTypeFilter.active };
+      });
+    }
 
-    vm.changeState = function (ev, itemType) {
+    // Change activation state of an existing Item type
+    function changeState(ev, itemType) {
       DialogService.showConfirmInactivation(ev, function (option) {
         if (option === true) {
           ItemTypesService.get({
             itemTypeId: itemType._id
           }).$promise.then(function (result) {
-            if (result.active === true) {
-              result.$remove(function () {
-                itemType.active = false;
-                Toast.success('Registro inativado com sucesso!');
-              });
-            }
+            result.$remove(function () {
+              itemType.active = false;
+              Toast.success($translate.instant('Item successfully inactivated!'));
+            });
           });
         }
       });
-    };
+    }
+
+    // Remove existing Item type
+    function remove(ev, itemType) {
+      DialogService.showConfirmDeletion(ev, function (option) {
+        if (option === true) {
+          ItemTypesService.get({
+            itemTypeId: itemType._id
+          }).$promise.then(function (result) {
+            result.$remove(function () {
+              refilter();
+              Toast.success($translate.instant('Item successfully deleted!'));
+            });
+          });
+        }
+      });
+    }
 
     $translatePartialLoader.addPart('item-types');
     $translate.refresh();

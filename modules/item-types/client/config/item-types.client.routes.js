@@ -12,7 +12,7 @@
       .state('item-types', {
         abstract: true,
         parent: 'home',
-        url: '/item-types',
+        url: 'item-types',
         template: '<ui-view/>'
       })
       .state('item-types.list', {

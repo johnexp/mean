@@ -18,6 +18,9 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/item-types',
       permissions: '*'
     }, {
+      resources: '/api/item-type',
+      permissions: '*'
+    }, {
       resources: '/api/item-type/:itemTypeId',
       permissions: '*'
     }, {

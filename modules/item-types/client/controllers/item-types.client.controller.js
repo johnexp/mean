@@ -6,9 +6,9 @@
     .module('item-types')
     .controller('ItemTypesController', ItemTypesController);
 
-  ItemTypesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'itemTypeResolve', '$translatePartialLoader', '$translate', '$mdMedia'];
+  ItemTypesController.$inject = ['$scope', '$state', 'Authentication', 'itemTypeResolve', '$translatePartialLoader', '$translate', '$mdMedia', 'DialogService', 'Toast'];
 
-  function ItemTypesController ($scope, $state, $window, Authentication, itemType, $translatePartialLoader, $translate, $mdMedia) {
+  function ItemTypesController($scope, $state, Authentication, itemType, $translatePartialLoader, $translate, $mdMedia, DialogService, Toast) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -16,6 +16,7 @@
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
+    vm.changeState = changeState;
     vm.save = save;
     vm.$mdMedia = $mdMedia;
 
@@ -23,10 +24,27 @@
     $translate.refresh();
 
     // Remove existing Item type
-    function remove() {
-      if ($window.confirm('Are you sure you want to delete?')) {
-        vm.itemType.$remove($state.go('item-types.list'));
-      }
+    function remove(ev) {
+      DialogService.showConfirmDeletion(ev, function (option) {
+        if (option === true) {
+          vm.itemType.$remove(function () {
+            $state.go('item-types.list');
+            Toast.success($translate.instant('Item successfully deleted!'));
+          });
+        }
+      });
+    }
+
+    // Change activation state of an existing Item type
+    function changeState(ev) {
+      DialogService.showConfirmInactivation(ev, function (option) {
+        if (option === true) {
+          vm.itemType.$remove(function () {
+            vm.itemType.active = false;
+            Toast.success($translate.instant('Item successfully inactivated!'));
+          });
+        }
+      });
     }
 
     // Save Item type

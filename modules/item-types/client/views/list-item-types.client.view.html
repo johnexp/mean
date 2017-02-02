@@ -68,9 +68,6 @@
       <md-divider></md-divider>
     </md-list-item>
   </md-list>
-  <div class="alert alert-warning text-center" ng-if="vm.itemTypes.$resolved && !vm.itemTypes.length">
-    {{ "No Item types yet, why don't you" }} <a ui-sref="item-types.create" translate>create one</a>?
-  </div>
   <div layout-margin></div>
   <h3 class="md-subheader">Filter</h3>
   <form name="vm.form.itemTypeFilter" form-on-change="vm.filterItems()">
