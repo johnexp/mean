@@ -1,4 +1,4 @@
-<md-content layout="column" layout-padding>
+<section layout="column" layout-padding>
   <div layout="column">
     <h2 class="md-title" translate>Item types</h2>
     <md-divider></md-divider>
@@ -100,14 +100,14 @@
   <md-divider></md-divider>
   <md-table-container>
     <table md-table>
-      <thead md-head md-order="vm.order">
+      <thead md-head md-order="vm.pagination.sort">
         <tr md-row>
           <th md-column md-order-by="name">{{ 'Name' | translate }}</th>
           <th md-column>{{ 'Actions' | translate }}</th>
         </tr>
       </thead>
       <tbody md-body>
-        <tr md-row ng-repeat="itemType in vm.itemTypes | orderBy: vm.order | limitTo: vm.pagination.limit: (vm.pagination.page - 1) * vm.pagination.limit">
+        <tr md-row ng-repeat="itemType in vm.itemTypes | orderBy: vm.pagination.sort | limitTo: vm.pagination.limit: (vm.pagination.page - 1) * vm.pagination.limit">
           <td md-cell>{{ itemType.name | translate }}</td>
           <td md-cell layout="row">
             <div class="show-gt-sm hide-xs hide-sm">
@@ -165,5 +165,113 @@
       </tbody>
     </table>
   </md-table-container>
-  <md-table-pagination md-limit="vm.pagination.limit" md-limit-options="vm.pagination.limitOptions" md-label="{{vm.pagination.label}}" md-page="vm.pagination.page" md-total="{{vm.itemTypes.length}}" md-page-select></md-table-pagination>
-</md-content>
+  <md-table-pagination md-limit="vm.pagination.limit" md-limit-options="vm.pagination.limitOptions" md-label="{{vm.pagination.label | translate}}" md-page="vm.pagination.page" md-total="{{vm.itemTypes.length}}" md-page-select></md-table-pagination>
+  <div layout-margin></div>
+  <h3 class="md-subheader">Filter</h3>
+  <form name="vm.form.itemTypeFilter">
+    <div layout="row" layout-margin>
+      <md-input-container flex="50">
+        <label>{{ 'Name' | translate }}</label>
+        <md-icon md-font-set="material-icons">person</md-icon>
+        <input name="name" type="text" ng-model="vm.itemTypeFilter.name">
+      </md-input-container>
+      <md-input-container flex="25">
+        <label translate>Active</label>
+        <md-icon md-font-set="material-icons">check</md-icon>
+        <md-select ng-model="vm.itemTypeFilter.active">
+          <md-option ng-value="" translate>All</md-option>
+          <md-option ng-value="true" translate>Yes</md-option>
+          <md-option ng-value="false" translate>No</md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container flex="25">
+        <label translate>Can Be Equiped</label>
+        <md-icon md-font-set="material-icons">check</md-icon>
+        <md-select ng-model="vm.itemTypeFilter.canBeEquiped">
+          <md-option ng-value="" translate></md-option>
+          <md-option ng-value="true" translate>Yes</md-option>
+          <md-option ng-value="false" translate>No</md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+    <div layout="row" layout-align="center center">
+      <md-button class="md-accent md-raised" ng-click="vm.filter()">
+        <md-icon md-font-set="material-icons">search</md-icon>
+        {{ 'Pesquisar' | translate }}
+      </md-button>
+      <md-button class="md-warn md-raised" ng-click="vm.itemTypeFilter = {}">
+        <md-icon md-font-set="material-icons">clear</md-icon>
+        {{ 'Limpar' | translate }}
+      </md-button>
+    </div>
+  </form>
+  <md-divider></md-divider>
+  <md-table-container>
+    <table md-table>
+      <thead md-head md-order="vm.pagination.sort" md-on-reorder="vm.filter">
+      <tr md-row>
+        <th md-column md-order-by="name">{{ 'Name' | translate }}</th>
+        <th md-column>{{ 'Actions' | translate }}</th>
+      </tr>
+      </thead>
+      <tbody md-body>
+      <tr md-row ng-repeat="itemType in vm.itemTypes">
+        <td md-cell>{{ itemType.name | translate }}</td>
+        <td md-cell layout="row">
+          <div class="show-gt-sm hide-xs hide-sm">
+            <md-button ui-sref="item-types.view({ itemTypeId: itemType._id })" class="md-icon-button">
+              <md-icon class="md-primary" md-font-set="material-icons">remove_red_eye</md-icon>
+              <md-tooltip>{{ 'View' | translate }}</md-tooltip>
+            </md-button>
+            <md-button ui-sref="item-types.edit({ itemTypeId: itemType._id })" class="md-icon-button">
+              <md-icon class="md-accent" md-font-set="material-icons">edit</md-icon>
+              <md-tooltip>{{ 'Edit' | translate }}</md-tooltip>
+            </md-button>
+            <md-button ng-click="vm.changeState($event, itemType)" class="md-icon-button">
+              <md-icon class="md-warn" md-font-set="material-icons">delete</md-icon>
+              <md-tooltip>{{ 'Delete' | translate }}</md-tooltip>
+            </md-button>
+          </div>
+          <div class="hide-gt-sm">
+            <md-menu>
+              <md-button ng-click="$mdOpenMenu()" class="md-icon-button">
+                <md-icon md-font-set="material-icons">more_vert</md-icon>
+                <md-tooltip><span translate>Actions</span></md-tooltip>
+              </md-button>
+              <md-menu-content>
+                <md-menu-item>
+                  <md-button ui-sref="item-types.view({ itemTypeId: itemType._id })">
+                    <md-icon class="md-primary" md-font-set="material-icons">remove_red_eye</md-icon>
+                    {{ 'View' | translate }}
+                  </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                  <md-button ui-sref="item-types.edit({ itemTypeId: itemType._id })">
+                    <md-icon class="md-accent" md-font-set="material-icons">edit</md-icon>
+                    {{ 'Edit' | translate }}
+                  </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                  <md-button ng-click="vm.changeState($event, itemType)">
+                    <md-icon ng-if="itemType.active === true" class="md-warn" md-font-set="material-icons">remove_circle</md-icon>
+                    <md-icon ng-if="itemType.active === false" class="md-accent md-hue-2" md-font-set="material-icons">check_circle</md-icon>
+                    {{ itemType.active === true ? 'Inactivate' : 'Activate' | translate }}
+                  </md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <table md-table ng-if="!vm.itemTypes || vm.itemTypes.length == 0">
+      <tbody md-body>
+      <tr md-row>
+        <td md-cell class="no-records-cell" layout="row" layout-align="center center"><h2 class="md-subheader" translate>No records</h2></td>
+      </tr>
+      </tbody>
+    </table>
+  </md-table-container>
+  <md-table-pagination md-limit="vm.pagination.limit" md-limit-options="vm.pagination.limitOptions" md-label="{{vm.pagination.label | translate}}" md-page="vm.pagination.page" md-total="{{vm.pagination.queryLimit}}" md-on-paginate="vm.filter" md-page-select></md-table-pagination>
+</section>

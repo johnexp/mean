@@ -13,7 +13,7 @@ module.exports = function(app) {
 
   app.route('/api/item-types/:active').all(itemTypesPolicy.isAllowed)
     .get(itemTypes.list)
-    .post(itemTypes.create);
+    .post(itemTypes.filter);
 
   app.route('/api/item-type/:itemTypeId').all(itemTypesPolicy.isAllowed)
     .get(itemTypes.read)

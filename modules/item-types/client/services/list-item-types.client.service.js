@@ -12,10 +12,20 @@
     var ItemType = $resource('/api/item-types/:active', {
       active: '@active'
     }, {
-      query: {
+      getByState: {
         method: 'GET',
         params: {
           active: '@active'
+        },
+        isArray: true
+      },
+      query: {
+        method: 'POST',
+        params: {
+          active: '@active'
+        },
+        transformRequest: function (data) {
+          return JSON.stringify(data);
         },
         isArray: true
       }

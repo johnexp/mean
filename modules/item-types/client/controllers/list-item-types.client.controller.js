@@ -10,15 +10,16 @@
   function ItemTypesListController(ListItemTypesService, ItemTypesService, $translatePartialLoader, $translate, PaginationService, $filter, Toast, DialogService) {
     var vm = this;
     vm.pagination = PaginationService.getPagination();
-    vm.allItemTypes = ListItemTypesService.query({ 'active': true });
+    vm.pagination.sort = 'name';
+    vm.allItemTypes = ListItemTypesService.getByState({ 'active': true });
     vm.itemTypes = vm.allItemTypes;
-    vm.order = 'name';
     vm.filterValue = [];
     vm.itemTypeFilter = { 'active': true };
     vm.filterItems = filterItems;
     vm.refilter = refilter;
     vm.changeState = changeState;
     vm.remove = remove;
+    vm.filter = filter;
 
     function filterItems() {
       angular.forEach(vm.itemTypeFilter, function (value, key) {
@@ -65,6 +66,16 @@
             });
           });
         }
+      });
+    }
+
+    function filter() {
+      ListItemTypesService.query({ 'active': ' ' }, { filter: vm.itemTypeFilter, queryCount: true }, function (result) {
+        vm.pagination.queryLimit = result[0];
+        PaginationService.setOffset(vm.pagination);
+        ListItemTypesService.query({ 'active': ' ' }, { filter: vm.itemTypeFilter, pagination: vm.pagination }, function (result) {
+          vm.itemTypes = result;
+        });
       });
     }
 

@@ -138,6 +138,12 @@
 
   function blockUIConfig(blockUIConfig) {
     blockUIConfig.template = '<div class=\"block-ui-overlay\"></div><div class=\"block-ui-message-container\" aria-live=\"assertive\" aria-atomic=\"true\"><div layout="row" layout-sm="column" layout-align="space-around"><md-progress-circular md-mode="indeterminate"></md-progress-circular></div></div>';
+    blockUIConfig.requestFilter = function(config) {
+      // If the request starts with '/api/' ...
+      if (config.url.match(/api/)) {
+        return true;
+      }
+    };
   }
 
   function init() {

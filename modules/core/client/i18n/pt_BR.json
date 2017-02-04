@@ -61,5 +61,6 @@
   "Inactivate": "Inativar",
   "Activate": "Ativar",
   "Item successfully inactivated": "Registro inativado com sucesso!",
-  "Item successfully deleted": "Registro removido com sucesso!"
+  "Item successfully deleted": "Registro removido com sucesso!",
+  "{ page: \"Page:\", rowsPerPage: \"Rows per page:\", of: \"of\" }": "{ page: 'Página:', rowsPerPage: 'Linhas por página:', of: 'de' }"
 }

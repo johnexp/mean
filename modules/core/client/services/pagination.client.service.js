@@ -6,20 +6,28 @@
     .factory('PaginationService', PaginationService);
 
   function PaginationService() {
-    return {
-      getPagination: function () {
-        return {
-          limit: 10,
-          limitOptions: [5, 10, 15],
-          page: 1,
-          label: {
-            page: 'Página:',
-            rowsPerPage: 'Linhas por página:',
-            of: 'de'
-          }
-        };
-      }
+
+    var pagination = {
+      limit: 10,
+      queryLimit: 10,
+      limitOptions: [2, 10, 15],
+      page: 1,
+      sort: '',
+      label: '{ page: "Page:", rowsPerPage: "Rows per page:", of: "of" }'
     };
+
+    return {
+      getPagination: getPagination,
+      setOffset: setOffset
+    };
+
+    function getPagination() {
+      return pagination;
+    }
+
+    function setOffset(pagination) {
+      pagination.offset = (pagination.page - 1) * pagination.limit;
+    }
   }
 
 }());

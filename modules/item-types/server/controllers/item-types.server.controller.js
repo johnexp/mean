@@ -86,8 +86,8 @@ exports.delete = function(req, res) {
  */
 exports.list = function(req, res) {
   var objFilter = {};
-  if (req.param('active')) {
-    objFilter.active = req.param('active');
+  if (req.params.hasOwnProperty('active')) {
+    objFilter.active = req.params.active;
   }
 
   ItemType.find(objFilter).sort('-created').populate('user', 'displayName').exec(function(err, itemTypes) {
@@ -101,6 +101,55 @@ exports.list = function(req, res) {
   });
 };
 
+/**
+ * Filter Item types
+ */
+exports.filter = function(req, res) {
+  if (req.body.hasOwnProperty('queryCount') && req.body.queryCount === true) {
+    return count(req.body, res);
+  }
+  var filter = req.body.hasOwnProperty('filter') ? req.body.filter : {};
+  var paramsLength = Object.keys(filter).length;
+  var pagination = req.body.hasOwnProperty('pagination') ? req.body.pagination : { sort: '', offset: 0, limit: 10 };
+  for (var i = 0; i < paramsLength; i++) {
+    var key = Object.keys(filter)[i];
+    if (typeof filter[key] === 'string' || filter[key] instanceof String) {
+      filter[key] = new RegExp(filter[key], 'i');
+    }
+  }
+  ItemType.find(filter).sort(pagination.sort).skip(pagination.offset).limit(pagination.limit).populate('user', 'displayName').exec(function(err, itemTypes) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(itemTypes);
+    }
+  });
+};
+
+/**
+ * Filter Item types
+ */
+function count(body, res) {
+  var filter = body.hasOwnProperty('filter') ? body.filter : {};
+  var paramsLength = Object.keys(filter).length;
+  for (var i = 0; i < paramsLength; i++) {
+    var key = Object.keys(filter)[i];
+    if (typeof filter[key] === 'string' || filter[key] instanceof String) {
+      filter[key] = new RegExp(filter[key], 'i');
+    }
+  }
+  ItemType.count(filter).exec(function(err, count) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp([count]);
+    }
+  });
+}
 
 /**
  * Item type middleware

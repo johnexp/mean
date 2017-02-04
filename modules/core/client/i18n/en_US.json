@@ -61,5 +61,6 @@
   "Inactivate": "Inactivate",
   "Activate": "Activate",
   "Item successfully inactivated": "Item successfully inactivated",
-  "Item successfully deleted": "Item successfully deleted"
+  "Item successfully deleted": "Item successfully deleted",
+  "{ page: \"Page:\", rowsPerPage: \"Rows per page:\", of: \"of\" }": "{ page: 'Page:', rowsPerPage: 'Rows per page:', of: 'of' }"
 }
