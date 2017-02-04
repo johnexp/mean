@@ -45,7 +45,7 @@
     }
 
     function blockScreen() {
-      blockUI.start('Aguarde...');
+      blockUI.start();
     }
 
     function unblockScreen() {

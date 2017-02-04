@@ -6,14 +6,13 @@
     .module('item-types')
     .controller('ItemTypesController', ItemTypesController);
 
-  ItemTypesController.$inject = ['$scope', '$state', 'Authentication', 'itemTypeResolve', '$translatePartialLoader', '$translate', '$mdMedia', 'DialogService', 'Toast'];
+  ItemTypesController.$inject = ['$scope', '$state', 'Authentication', 'itemTypeResolve', '$translatePartialLoader', '$translate', '$mdMedia', 'DialogService', 'Toast', '$log'];
 
-  function ItemTypesController($scope, $state, Authentication, itemType, $translatePartialLoader, $translate, $mdMedia, DialogService, Toast) {
+  function ItemTypesController($scope, $state, Authentication, itemType, $translatePartialLoader, $translate, $mdMedia, DialogService, Toast, $log) {
     var vm = this;
 
     vm.authentication = Authentication;
     vm.itemType = itemType;
-    vm.error = null;
     vm.form = {};
     vm.remove = remove;
     vm.changeState = changeState;
@@ -29,7 +28,9 @@
         if (option === true) {
           vm.itemType.$remove(function () {
             $state.go('item-types.list');
-            Toast.success($translate.instant('Item successfully deleted!'));
+          }, function (res) {
+            Toast.error($translate.instant('Your request could not be completed! Please contact your system administrator.'));
+            $log.error(res.data.message);
           });
         }
       });
@@ -41,7 +42,9 @@
         if (option === true) {
           vm.itemType.$remove(function () {
             vm.itemType.active = false;
-            Toast.success($translate.instant('Item successfully inactivated!'));
+          }, function (res) {
+            Toast.error($translate.instant('Your request could not be completed! Please contact your system administrator.'));
+            $log.error(res.data.message);
           });
         }
       });
@@ -51,6 +54,7 @@
     function save(isValid) {
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.itemTypeForm');
+        Toast.error($translate.instant('Some fields were not filled correctly'));
         return false;
       }
 
@@ -65,7 +69,8 @@
       }
 
       function errorCallback(res) {
-        vm.error = res.data.message;
+        Toast.error($translate.instant('Your request could not be completed! Please contact your system administrator.'));
+        $log.error(res.data.message);
       }
     }
   }

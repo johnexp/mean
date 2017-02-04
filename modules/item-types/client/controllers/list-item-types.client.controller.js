@@ -5,16 +5,16 @@
     .module('item-types')
     .controller('ItemTypesListController', ItemTypesListController);
 
-  ItemTypesListController.$inject = ['ListItemTypesService', 'ItemTypesService', '$translatePartialLoader', '$translate', 'PaginationService', '$filter', 'Toast', 'DialogService'];
+  ItemTypesListController.$inject = ['ListItemTypesService', 'ItemTypesService', '$translatePartialLoader', '$translate', 'PaginationService', '$filter', 'Toast', 'DialogService', '$log'];
 
-  function ItemTypesListController(ListItemTypesService, ItemTypesService, $translatePartialLoader, $translate, PaginationService, $filter, Toast, DialogService) {
+  function ItemTypesListController(ListItemTypesService, ItemTypesService, $translatePartialLoader, $translate, PaginationService, $filter, Toast, DialogService, $log) {
     var vm = this;
     vm.pagination = PaginationService.getPagination();
     vm.pagination.sort = 'name';
-    vm.allItemTypes = ListItemTypesService.getByState({ 'active': true });
+    vm.allItemTypes = ListItemTypesService.getByState({ active: true });
     vm.itemTypes = vm.allItemTypes;
     vm.filterValue = [];
-    vm.itemTypeFilter = { 'active': true };
+    vm.itemTypeFilter = { active: true };
     vm.filterItems = filterItems;
     vm.refilter = refilter;
     vm.changeState = changeState;
@@ -31,9 +31,9 @@
     }
 
     function refilter() {
-      vm.allItemTypes = ListItemTypesService.query({ 'active': vm.itemTypeFilter.active }, function () {
+      vm.allItemTypes = ListItemTypesService.getByState({ active: vm.itemTypeFilter.active }, function () {
         vm.itemTypes = vm.allItemTypes;
-        vm.itemTypeFilter = { 'active': vm.itemTypeFilter.active };
+        vm.itemTypeFilter = { active: vm.itemTypeFilter.active };
       });
     }
 
@@ -41,13 +41,12 @@
     function changeState(ev, itemType) {
       DialogService.showConfirmInactivation(ev, function (option) {
         if (option === true) {
-          ItemTypesService.get({
-            itemTypeId: itemType._id
-          }).$promise.then(function (result) {
-            result.$remove(function () {
-              itemType.active = false;
-              Toast.success($translate.instant('Item successfully inactivated!'));
-            });
+          var ItemTypeResource = new ItemTypesService();
+          ItemTypeResource.$remove({ itemTypeId: itemType._id }, function () {
+            filter();
+          }, function (res) {
+            Toast.error($translate.instant('Your request could not be completed! Please contact your system administrator.'));
+            $log.error(res.data.message);
           });
         }
       });
@@ -57,23 +56,22 @@
     function remove(ev, itemType) {
       DialogService.showConfirmDeletion(ev, function (option) {
         if (option === true) {
-          ItemTypesService.get({
-            itemTypeId: itemType._id
-          }).$promise.then(function (result) {
-            result.$remove(function () {
-              refilter();
-              Toast.success($translate.instant('Item successfully deleted!'));
-            });
+          var ItemTypeResource = new ItemTypesService();
+          ItemTypeResource.$remove({ itemTypeId: itemType._id }, function () {
+            refilter();
+          }, function (res) {
+            Toast.error($translate.instant('Your request could not be completed! Please contact your system administrator.'));
+            $log.error(res.data.message);
           });
         }
       });
     }
 
     function filter() {
-      ListItemTypesService.query({ 'active': ' ' }, { filter: vm.itemTypeFilter, queryCount: true }, function (result) {
+      ListItemTypesService.query({ filter: vm.itemTypeFilter, queryCount: true }, function (result) {
         vm.pagination.queryLimit = result[0];
         PaginationService.setOffset(vm.pagination);
-        ListItemTypesService.query({ 'active': ' ' }, { filter: vm.itemTypeFilter, pagination: vm.pagination }, function (result) {
+        vm.queryPromise = ListItemTypesService.query({ filter: vm.itemTypeFilter, pagination: vm.pagination }, function (result) {
           vm.itemTypes = result;
         });
       });

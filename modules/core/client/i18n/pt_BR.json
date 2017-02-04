@@ -38,6 +38,8 @@
   "U": "Atualizado",
   "C": "Criado",
   "D": "Excluído",
+  "A": "Ativado",
+  "I": "Inativado",
   "User": "Usuário",
   "Date": "Data",
   "Action": "Ação",
@@ -45,6 +47,7 @@
   "History": "Histórico",
   "Cancel": "Cancelar",
   "Search": "Pesquisar",
+  "Clear": "Limpar",
   "Active": "Ativo",
   "All": "Todos",
   "Yes": "Sim",
@@ -53,6 +56,8 @@
   "Edit": "Editar",
   "Delete": "Excluir",
   "List": "Listar",
+  "true": "Sim",
+  "false": "Não",
   "confirm_deletion": "Deseja remover o registro?",
   "delete_item": "Remover Item",
   "No records": "Nenhum registro disponvível",
@@ -62,5 +67,7 @@
   "Activate": "Ativar",
   "Item successfully inactivated": "Registro inativado com sucesso!",
   "Item successfully deleted": "Registro removido com sucesso!",
+  "Some fields were not filled correctly": "Alguns campos não foram corretamente preenchidos",
+  "Your request could not be completed! Please contact your system administrator.": "Sua requisição não pode ser completada! Por favor contacte o administrador do sistema.",
   "{ page: \"Page:\", rowsPerPage: \"Rows per page:\", of: \"of\" }": "{ page: 'Página:', rowsPerPage: 'Linhas por página:', of: 'de' }"
 }

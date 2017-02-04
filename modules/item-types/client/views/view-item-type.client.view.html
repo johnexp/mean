@@ -38,7 +38,11 @@
       </md-list-item>
       <md-list-item class="md-list-item-text" layout="row" layout-padding>
         <p class="md-subhead" flex="30" translate>Can Be Equiped</p>
-        <p class="md-caption" ng-bind="vm.itemType.canBeEquiped"></p>
+        <p class="md-caption" ng-bind="vm.itemType.canBeEquiped | translate"></p>
+      </md-list-item>
+      <md-list-item class="md-list-item-text" layout="row" layout-padding>
+        <p class="md-subhead" flex="30" translate>Active</p>
+        <p class="md-caption" ng-bind="vm.itemType.active | translate"></p>
       </md-list-item>
       <md-divider></md-divider>
       <md-list-item class="md-list-item-text md-no-proxy" layout="row" layout-padding layout-align="none start">

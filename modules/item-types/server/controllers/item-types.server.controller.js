@@ -67,8 +67,26 @@ exports.update = function(req, res) {
  */
 exports.delete = function(req, res) {
   var itemType = req.itemType;
-  itemType.active = false;
-  itemType.modified.push({ 'date': Date.now(), 'user': req.user, 'action': 'D' });
+
+  itemType.remove(function (err) {
+    if (err) {
+      return res.status(422).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.json(itemType);
+    }
+  });
+};
+
+/**
+ * Change activation state of an Item type
+ */
+exports.changeState = function(req, res) {
+  var itemType = req.itemType;
+  itemType.active = !itemType.active;
+  var state = itemType.active ? 'A' : 'I';
+  itemType.modified.push({ 'date': Date.now(), 'user': req.user, 'action': state });
 
   itemType.save(function(err) {
     if (err) {

@@ -9,9 +9,7 @@
   ListItemTypesService.$inject = ['$resource'];
 
   function ListItemTypesService($resource) {
-    var ItemType = $resource('/api/item-types/:active', {
-      active: '@active'
-    }, {
+    var ItemType = $resource('/api/item-types/:active', {}, {
       getByState: {
         method: 'GET',
         params: {
@@ -21,9 +19,13 @@
       },
       query: {
         method: 'POST',
-        params: {
-          active: '@active'
+        transformRequest: function (data) {
+          return JSON.stringify(data);
         },
+        isArray: true
+      },
+      delete: {
+        method: 'DELETE',
         transformRequest: function (data) {
           return JSON.stringify(data);
         },

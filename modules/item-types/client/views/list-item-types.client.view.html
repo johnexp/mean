@@ -1,8 +1,10 @@
 <section layout="column" layout-padding>
-  <div layout="column">
+  <div layout="row">
     <h2 class="md-title" translate>Item types</h2>
-    <md-divider></md-divider>
+    <div flex></div>
+    <list-action-bar module-name="item-types"></list-action-bar>
   </div>
+  <md-divider></md-divider>
   <h3 class="md-subheader">Filter</h3>
   <form name="vm.form.itemTypeFilter" ng-submit="vm.filterSimple()">
     <div layout="row">
@@ -57,7 +59,7 @@
               </md-button>
             </md-menu-item>
             <md-menu-item>
-              <md-button ng-click="vm.changeState($event, itemType)">
+              <md-button ng-click="vm.remove($event, itemType)">
                 <md-icon class="md-warn" md-font-set="material-icons">delete</md-icon>
                 {{ 'Delete' | translate }}
               </md-button>
@@ -197,17 +199,17 @@
     <div layout="row" layout-align="center center">
       <md-button class="md-accent md-raised" ng-click="vm.filter()">
         <md-icon md-font-set="material-icons">search</md-icon>
-        {{ 'Pesquisar' | translate }}
+        {{ 'Search' | translate }}
       </md-button>
       <md-button class="md-warn md-raised" ng-click="vm.itemTypeFilter = {}">
         <md-icon md-font-set="material-icons">clear</md-icon>
-        {{ 'Limpar' | translate }}
+        {{ 'Clear' | translate }}
       </md-button>
     </div>
   </form>
   <md-divider></md-divider>
   <md-table-container>
-    <table md-table>
+    <table md-table md-progress="vm.queryPromise">
       <thead md-head md-order="vm.pagination.sort" md-on-reorder="vm.filter">
       <tr md-row>
         <th md-column md-order-by="name">{{ 'Name' | translate }}</th>
