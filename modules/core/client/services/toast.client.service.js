@@ -4,9 +4,9 @@
   angular.module('core')
     .factory('Toast', Toast);
 
-  Toast.$inject = ['$mdToast', 'blockUI'];
+  Toast.$inject = ['$mdToast', 'blockUI', '$translate'];
 
-  function Toast($mdToast, blockUI) {
+  function Toast($mdToast, blockUI, $translate) {
     var self;
 
     self = {
@@ -15,6 +15,7 @@
       error: error,
       info: info,
       success: success,
+      genericErrorMessage: genericErrorMessage,
       blockScreen: blockScreen,
       unblockScreen: unblockScreen
     };
@@ -42,6 +43,10 @@
 
     function success(mensagem) {
       return toast(mensagem, 'success-toast', 'done');
+    }
+
+    function genericErrorMessage() {
+      return error($translate.instant('Your request could not be completed! Please contact your system administrator.'));
     }
 
     function blockScreen() {

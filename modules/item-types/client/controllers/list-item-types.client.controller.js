@@ -13,7 +13,6 @@
     vm.pagination.sort = 'name';
     vm.allItemTypes = ListItemTypesService.getByState({ active: true });
     vm.itemTypes = vm.allItemTypes;
-    vm.filterValue = [];
     vm.itemTypeFilter = { active: true };
     vm.filterItems = filterItems;
     vm.refilter = refilter;
@@ -45,7 +44,7 @@
           ItemTypeResource.$remove({ itemTypeId: itemType._id }, function () {
             filter();
           }, function (res) {
-            Toast.error($translate.instant('Your request could not be completed! Please contact your system administrator.'));
+            Toast.genericErrorMessage();
             $log.error(res.data.message);
           });
         }
@@ -60,7 +59,7 @@
           ItemTypeResource.$remove({ itemTypeId: itemType._id }, function () {
             refilter();
           }, function (res) {
-            Toast.error($translate.instant('Your request could not be completed! Please contact your system administrator.'));
+            Toast.genericErrorMessage();
             $log.error(res.data.message);
           });
         }

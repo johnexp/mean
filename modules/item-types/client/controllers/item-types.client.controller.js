@@ -29,7 +29,7 @@
           vm.itemType.$remove(function () {
             $state.go('item-types.list');
           }, function (res) {
-            Toast.error($translate.instant('Your request could not be completed! Please contact your system administrator.'));
+            Toast.genericErrorMessage();
             $log.error(res.data.message);
           });
         }
@@ -43,7 +43,7 @@
           vm.itemType.$remove(function () {
             vm.itemType.active = false;
           }, function (res) {
-            Toast.error($translate.instant('Your request could not be completed! Please contact your system administrator.'));
+            Toast.genericErrorMessage();
             $log.error(res.data.message);
           });
         }
@@ -69,7 +69,7 @@
       }
 
       function errorCallback(res) {
-        Toast.error($translate.instant('Your request could not be completed! Please contact your system administrator.'));
+        Toast.genericErrorMessage();
         $log.error(res.data.message);
       }
     }
