@@ -12,7 +12,7 @@
       .state('ranks', {
         abstract: true,
         parent: 'home',
-        url: '/ranks',
+        url: 'ranks',
         template: '<ui-view/>'
       })
       .state('ranks.list', {

@@ -6,11 +6,13 @@
     .module('item-types')
     .controller('ItemTypesController', ItemTypesController);
 
-  ItemTypesController.$inject = ['$scope', '$state', 'Authentication', 'itemTypeResolve', '$translatePartialLoader', '$translate', '$mdMedia', 'DialogService', 'Toast', '$log'];
+  ItemTypesController.$inject = ['$scope', '$state', 'Authentication', 'itemTypeResolve', '$translatePartialLoader', '$translate', '$mdMedia', 'DialogService', 'Toast', '$log', 'PaginationService'];
 
-  function ItemTypesController($scope, $state, Authentication, itemType, $translatePartialLoader, $translate, $mdMedia, DialogService, Toast, $log) {
+  function ItemTypesController($scope, $state, Authentication, itemType, $translatePartialLoader, $translate, $mdMedia, DialogService, Toast, $log, PaginationService) {
     var vm = this;
 
+    vm.historyPagination = PaginationService.getPagination();
+    vm.historyPagination.sort = '-date';
     vm.authentication = Authentication;
     vm.itemType = itemType;
     vm.form = {};

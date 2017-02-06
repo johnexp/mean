@@ -34,7 +34,7 @@
       <div class="md-list-item-text" layout="column">
         <h3>{{ itemType.name }}</h3>
         <p class="md-caption">
-          {{ "Posted on" | translate }}{{ itemType.user.name }}
+          {{ "Posted on" | translate }}
           <span ng-bind="itemType.created | date:'mediumDate'"></span>
           {{ "by" | translate }}
           <span ng-if="itemType.user" ng-bind="itemType.user.displayName"></span>
@@ -75,7 +75,7 @@
   <form name="vm.form.itemTypeFilter" form-on-change="vm.filterItems()">
     <div layout="row" layout-margin>
       <md-input-container flex="50">
-        <label>{{ 'Name' | translate }}</label>
+        <label translate>Name</label>
         <md-icon md-font-set="material-icons">person</md-icon>
         <input name="name" type="text" ng-model="vm.itemTypeFilter.name">
       </md-input-container>

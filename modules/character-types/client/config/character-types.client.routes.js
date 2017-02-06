@@ -12,7 +12,7 @@
       .state('character-types', {
         abstract: true,
         parent: 'home',
-        url: '/character-types',
+        url: 'character-types',
         template: '<ui-view/>'
       })
       .state('character-types.list', {

@@ -12,7 +12,7 @@
       .state('articles', {
         abstract: true,
         parent: 'home',
-        url: '/articles',
+        url: 'articles',
         template: '<ui-view/>'
       })
       .state('articles.list', {

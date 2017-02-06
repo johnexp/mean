@@ -14,7 +14,7 @@
       .state('settings', {
         abstract: true,
         parent: 'home',
-        url: '/settings',
+        url: 'settings',
         templateUrl: '/modules/users/client/views/settings/settings.client.view.html',
         controller: 'SettingsController',
         controllerAs: 'vm',
@@ -61,7 +61,7 @@
       .state('authentication', {
         abstract: true,
         parent: 'home',
-        url: '/authentication',
+        url: 'authentication',
         templateUrl: '/modules/users/client/views/authentication/authentication.client.view.html',
         controller: 'AuthenticationController',
         controllerAs: 'vm'
@@ -87,7 +87,7 @@
       .state('password', {
         abstract: true,
         parent: 'home',
-        url: '/password',
+        url: 'password',
         template: '<ui-view/>'
       })
       .state('password.forgot', {
@@ -102,7 +102,7 @@
       .state('password.reset', {
         abstract: true,
         parent: 'home',
-        url: '/reset',
+        url: 'reset',
         template: '<ui-view/>'
       })
       .state('password.reset.invalid', {

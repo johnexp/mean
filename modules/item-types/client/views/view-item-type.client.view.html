@@ -1,11 +1,11 @@
-<md-content layout="column" layout-margin>
+<section layout="column" layout-margin>
   <md-card layout="column">
     <md-toolbar layout="row" class="md-primary">
       <div class="md-toolbar-tools">
         <h2 class="md-title" ng-bind="vm.itemType.name"></h2>
         <div flex></div>
-        <div ng-show="vm.itemType.isCurrentUserOwner">
-          <md-fab-speed-dial md-open="false" md-direction="left" class="md-scale">
+        <div>
+          <md-fab-speed-dial md-open="false" md-direction="left" hide-xs class="md-scale">
             <md-fab-trigger>
               <md-button class="md-fab md-primary md-hue-3" ng-class="vm.$mdMedia('sm') || vm.$mdMedia('xs') ? 'md-mini' : ''" aria-label="actions">
                 <md-icon md-font-set="material-icons">more_vert</md-icon>
@@ -32,39 +32,49 @@
     </md-toolbar>
     <md-divider></md-divider>
     <md-list class="md-dense" layout-padding flex>
-      <md-list-item class="md-list-item-text" layout="row" layout-padding>
-        <p class="md-subhead" flex="30" translate>Name</p>
+      <md-list-item class="md-list-item-text" layout="row" layout-xs="column" layout-align-xs="center start" layout-padding>
+        <p class="md-subhead" flex="30" flex-xs="100" translate>Name</p>
         <p class="md-caption" ng-bind="vm.itemType.name"></p>
       </md-list-item>
-      <md-list-item class="md-list-item-text" layout="row" layout-padding>
-        <p class="md-subhead" flex="30" translate>Can Be Equiped</p>
+      <md-list-item class="md-list-item-text" layout="row" layout-xs="column" layout-align-xs="center start" layout-padding>
+        <p class="md-subhead" flex="30" flex-xs="100" translate>Can Be Equiped</p>
         <p class="md-caption" ng-bind="vm.itemType.canBeEquiped | translate"></p>
       </md-list-item>
-      <md-list-item class="md-list-item-text" layout="row" layout-padding>
+      <md-list-item class="md-list-item-text" layout="row" layout-xs="column" layout-align-xs="center start" layout-padding>
         <p class="md-subhead" flex="30" translate>Active</p>
         <p class="md-caption" ng-bind="vm.itemType.active | translate"></p>
       </md-list-item>
       <md-divider></md-divider>
-      <md-list-item class="md-list-item-text md-no-proxy" layout="row" layout-padding layout-align="none start">
+      <md-list-item class="md-list-item-text md-no-proxy" layout="row" layout-xs="column" layout-align-xs="center start" layout-padding layout-align="none start">
         <p class="md-subhead" flex="30" translate>History</p>
-        <md-table-container>
-          <table md-table>
-            <thead md-head>
-            <tr md-row>
-              <th md-column><span translate>User</span></th>
-              <th md-column><span translate>Date</span></th>
-              <th md-column><span translate>Action</span></th>
-            </tr>
-            </thead>
-            <tbody md-body>
-            <tr md-row ng-repeat="modified in vm.itemType.modified">
-              <td md-cell><md-button class="md-primary" ui-sref="admin.user({ userId: modified.user._id })">{{modified.user.displayName}}</md-button></td>
-              <td md-cell>{{modified.date | date: "dd/MM/yyyy HH:mm:ss"}}</td>
-              <td md-cell>{{modified.action | translate}}</td>
-            </tr>
-            </tbody>
-          </table>
-        </md-table-container>
+        <md-content layout="column">
+          <md-table-container>
+            <table md-table>
+              <thead md-head md-order="vm.historyPagination.sort">
+              <tr md-row>
+                <th md-column md-order-by="user.displayName"><span translate>User</span></th>
+                <th md-column md-order-by="date"><span translate>Date</span></th>
+                <th md-column md-order-by="action"><span translate>Action</span></th>
+              </tr>
+              </thead>
+              <tbody md-body>
+              <tr md-row ng-repeat="modified in vm.itemType.modified | orderBy: vm.historyPagination.sort | limitTo: vm.historyPagination.limit: (vm.historyPagination.page - 1) * vm.historyPagination.limit">
+                <td md-cell><md-button class="md-primary" ui-sref="admin.user({ userId: modified.user._id })">{{modified.user.displayName}}</md-button></td>
+                <td md-cell>{{modified.date | date: "dd/MM/yyyy HH:mm:ss"}}</td>
+                <td md-cell>{{modified.action | translate}}</td>
+              </tr>
+              </tbody>
+            </table>
+            <table md-table ng-if="!vm.itemType.modified || vm.itemTypes.modified.length == 0">
+              <tbody md-body>
+              <tr md-row>
+                <td md-cell class="no-records-cell" layout="row" layout-align="center center"><h2 class="md-subheader" translate>No records</h2></td>
+              </tr>
+              </tbody>
+            </table>
+          </md-table-container>
+          <md-table-pagination md-limit="vm.historyPagination.limit" md-limit-options="vm.historyPagination.limitOptions" md-label="{{vm.historyPagination.label | translate}}" md-page="vm.historyPagination.page" md-total="{{vm.itemType.modified.length}}" md-page-select></md-table-pagination>
+        </md-content>
       </md-list-item>
     </md-list>
   </md-card>
@@ -80,4 +90,4 @@
     </small>
     <p ng-bind="vm.itemType.content"></p>
   </div>
-</md-content>
+</section>
