@@ -192,3 +192,14 @@ exports.itemTypeByID = function(req, res, next, id) {
     next();
   });
 };
+
+exports.getEnumValue = function(req, res, next, field) {
+  try {
+    var enumValues = ItemType.schema.path(field).enumValues;
+    res.jsonp(enumValues);
+  } catch (ex) {
+    return res.status(400).send({
+      message: 'The field "' + field + '" is not a valid enum.'
+    });
+  }
+};

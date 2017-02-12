@@ -5,13 +5,14 @@
     .module('item-types')
     .controller('ItemTypesListController', ItemTypesListController);
 
-  ItemTypesListController.$inject = ['ListItemTypesService', 'ItemTypesService', '$translatePartialLoader', '$translate', 'PaginationService', '$filter', 'Toast', 'DialogService', '$log'];
+  ItemTypesListController.$inject = ['itemTypeResolve', '$translatePartialLoader', '$translate', 'PaginationService', '$filter', 'Toast', 'DialogService', '$log'];
 
-  function ItemTypesListController(ListItemTypesService, ItemTypesService, $translatePartialLoader, $translate, PaginationService, $filter, Toast, DialogService, $log) {
+  function ItemTypesListController(itemType, $translatePartialLoader, $translate, PaginationService, $filter, Toast, DialogService, $log) {
     var vm = this;
     vm.pagination = PaginationService.getPagination();
     vm.pagination.sort = 'name';
-    vm.allItemTypes = ListItemTypesService.getByState({ active: true });
+    vm.itemTypeService = itemType;
+    vm.allItemTypes = itemType.getListResource().getByState({ active: true });
     vm.itemTypes = vm.allItemTypes;
     vm.itemTypeFilter = { active: true };
     vm.filterItems = filterItems;
@@ -30,7 +31,7 @@
     }
 
     function refilter() {
-      vm.allItemTypes = ListItemTypesService.getByState({ active: vm.itemTypeFilter.active }, function () {
+      vm.allItemTypes = vm.itemTypeService.getListResource().getByState({ active: vm.itemTypeFilter.active }, function () {
         vm.itemTypes = vm.allItemTypes;
         vm.itemTypeFilter = { active: vm.itemTypeFilter.active };
       });
@@ -40,8 +41,7 @@
     function changeState(ev, itemType) {
       DialogService.showConfirmInactivation(ev, function (option) {
         if (option === true) {
-          var ItemTypeResource = new ItemTypesService();
-          ItemTypeResource.$remove({ itemTypeId: itemType._id }, function () {
+          vm.itemTypeService.$remove({ itemTypeId: itemType._id }, function () {
             filter();
           }, function (res) {
             Toast.genericErrorMessage();
@@ -55,8 +55,7 @@
     function remove(ev, itemType) {
       DialogService.showConfirmDeletion(ev, function (option) {
         if (option === true) {
-          var ItemTypeResource = new ItemTypesService();
-          ItemTypeResource.$remove({ itemTypeId: itemType._id }, function () {
+          vm.itemTypeService.$remove({ itemTypeId: itemType._id }, function () {
             refilter();
           }, function (res) {
             Toast.genericErrorMessage();
@@ -67,10 +66,10 @@
     }
 
     function filter() {
-      ListItemTypesService.query({ filter: vm.itemTypeFilter, queryCount: true }, function (result) {
+      vm.itemTypeService.getListResource().query({ filter: vm.itemTypeFilter, queryCount: true }, function (result) {
         vm.pagination.queryLimit = result[0];
         PaginationService.setOffset(vm.pagination);
-        vm.queryPromise = ListItemTypesService.query({ filter: vm.itemTypeFilter, pagination: vm.pagination }, function (result) {
+        vm.queryPromise = vm.itemTypeService.getListResource().query({ filter: vm.itemTypeFilter, pagination: vm.pagination }, function (result) {
           vm.itemTypes = result;
         });
       });

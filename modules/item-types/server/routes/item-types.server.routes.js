@@ -13,6 +13,9 @@ module.exports = function(app) {
     .delete(itemTypes.changeState)
     .post(itemTypes.filter);
 
+  app.route('/api/item-types/enum/:field').all(itemTypesPolicy.isAllowed)
+    .get(itemTypes.getEnumValue);
+
   app.route('/api/item-types/:active').all(itemTypesPolicy.isAllowed)
     .get(itemTypes.list);
 
@@ -26,4 +29,5 @@ module.exports = function(app) {
 
   // Finish by binding the Item type middleware
   app.param('itemTypeId', itemTypes.itemTypeByID);
+  app.param('field', itemTypes.getEnumValue);
 };

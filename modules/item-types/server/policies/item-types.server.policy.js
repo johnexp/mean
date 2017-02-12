@@ -26,6 +26,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/item-types/:active',
       permissions: '*'
+    }, {
+      resources: '/api/item-types/enum/:field',
+      permissions: '*'
     }]
   }, {
     roles: ['user'],

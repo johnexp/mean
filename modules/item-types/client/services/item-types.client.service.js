@@ -21,10 +21,52 @@
       createOrUpdate: function () {
         var itemType = this;
         return createOrUpdate(itemType);
-      }
+      },
+      getListResource: getListResource,
+      getEnumResource: getEnumResource
     });
 
     return ItemType;
+
+    function getListResource() {
+      return $resource('/api/item-types/:active', {}, {
+        getByState: {
+          method: 'GET',
+          params: {
+            active: '@active'
+          },
+          isArray: true
+        },
+        query: {
+          method: 'POST',
+          transformRequest: function (data) {
+            return JSON.stringify(data);
+          },
+          isArray: true
+        },
+        delete: {
+          method: 'DELETE',
+          transformRequest: function (data) {
+            return JSON.stringify(data);
+          },
+          isArray: true
+        }
+      });
+    }
+
+    function getEnumResource() {
+      return $resource('/api/item-types/enum/:field', {
+        field: '@field'
+      }, {
+        getEnumValues: {
+          method: 'GET',
+          params: {
+            field: '@field'
+          },
+          isArray: true
+        }
+      });
+    }
 
     function createOrUpdate(itemType) {
       if (itemType._id) {

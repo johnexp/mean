@@ -20,6 +20,9 @@
         templateUrl: '/modules/item-types/client/views/list-item-types.client.view.html',
         controller: 'ItemTypesListController',
         controllerAs: 'vm',
+        resolve: {
+          itemTypeResolve: newItemType
+        },
         data: {
           roles: ['user', 'admin'],
           pageTitle: 'Item types List'

@@ -12,6 +12,7 @@ var mongoose = require('mongoose'),
 var ItemTypeSchema = new Schema({
   name: {
     type: String,
+    enum: ['teste1', 'Teste 2'],
     default: '',
     required: 'Please fill Item type name',
     trim: true
