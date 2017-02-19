@@ -20,6 +20,7 @@
     vm.changeState = changeState;
     vm.remove = remove;
     vm.filter = filter;
+    vm.repeatCompanions = ['test1', 'Testd 2'];
 
     function filterItems() {
       angular.forEach(vm.itemTypeFilter, function (value, key) {

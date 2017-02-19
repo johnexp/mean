@@ -59,9 +59,10 @@
     <div layout-gt-sm="row" layout-wrap>
       <md-input-container flex>
         <label for="drink" translate>Drink</label>
-        <input name="drink" type="text" ng-model="vm.teste.drink" id="drink" pattern="/(\d{2}) \d{5}-\d{4}/">
+        <input name="drink" type="text" ng-model="vm.teste.drink" id="drink" pattern="/(\d{2}) \d{5}-\d{4}/" required>
         <div ng-messages="vm.form.testeForm.drink.$error">
           <p ng-message="pattern" translate>This is not a valid phone number!</p>
+          <p ng-message="required" translate>Ops</p>
         </div>
       </md-input-container>
       <md-input-container flex>
@@ -86,35 +87,20 @@
     <div layout-gt-sm="row" layout-wrap>
       <p class="md-subhead" flex="100">Eat</p>
       <div flex="25" ng-repeat="eat in vm.eats">
-        <md-checkbox name="selectedEat[]" value="{{eat}}" ng-checked="vm.selectedEat.indexOf(eat) > -1" ng-click="vm.toggleSelectedEat(eat)" ng-disabled="!vm.teste.ammount">
-          <span translate>{{eat}}</span>
-        </md-checkbox>
-      </div>
-      <div flex="25">
-        <md-checkbox name="selectedEat[]" value="bacon" ng-checked="vm.selectedEat.indexOf('bacon') > -1" ng-click="vm.toggleSelectedEat('bacon')" ng-disabled="!vm.teste.ammount">
-          <span translate>Bacon</span>
-        </md-checkbox>
-      </div>
-      <div flex="25">
-        <md-checkbox name="selectedEat[]" value="eggs" ng-checked="vm.selectedEat.indexOf('eggs') > -1" ng-disabled="!vm.teste.ammount">
-          <span translate>Eggs</span>
-        </md-checkbox>
-      </div>
-      <div flex="25">
-        <md-checkbox name="selectedEat[]" value="bacon" ng-checked="vm.selectedEat.indexOf('bacon') > -1" ng-disabled="!vm.teste.ammount">
-          <span translate>Bacon</span>
+        <md-checkbox name="selectedEats[]" value="{{eat}}" ng-checked="vm.selectedEats.indexOf(eat) > -1" ng-click="vm.toggleSelectedEats(eat)" ng-disabled="!vm.teste.ammount">
+          <span>Eats</span>
         </md-checkbox>
       </div>
     </div>
     <div layout-gt-sm="row" layout-wrap>
       <md-checkbox ng-model="vm.teste.eat2" ng-disabled="!vm.teste.ammount">
-        <span translate>Eat 2?</span>
+        <span>Eat 2?</span>
       </md-checkbox>
     </div>
     <div layout-gt-sm="row" layout-wrap>
       <md-input-container flex>
         <label>Companion</label>
-        <md-select ng-model="vm.teste.companion" md-on-close="vm.clearSelectOptSearchTerm()" data-md-container-class="select-search" multiple>
+        <md-select ng-model="vm.teste.companion" md-on-close="vm.clearSelectOptSearchTerm()" data-md-container-class="select-search" multiple required>
           <md-select-header class="select-search-header">
             <input ng-model="vm.selectOptSearchTerm" type="search" placeholder="{{ 'Search for a Companion...' | translate }}" class="select-search-searchbox md-text">
           </md-select-header>
@@ -124,16 +110,33 @@
             </md-option>
           </md-optgroup>
         </md-select>
+        <div ng-messages="vm.form.testeForm.companion.$error">
+          <p ng-message="required" translate>Mandatory</p>
+        </div>
       </md-input-container>
       <md-input-container flex>
         <label>Companion 2</label>
-        <md-select ng-model="vm.teste.companion2" md-on-close="vm.clearSelectOptSearchTerm()" data-md-container-class="select-search">
+        <md-select ng-model="vm.teste.companion2">
           <md-option><em translate>None</em></md-option>
           <md-option ng-value="companion2._id" ng-selected="vm.teste.companion2.indexOf(companion2._id) > -1" ng-repeat="companion2 in vm.companion2s | filter: vm.selectOptSearchTerm">
             {{companion2.displayName}}
           </md-option>
         </md-select>
       </md-input-container>
+    </div>
+    <div layout-gt-sm="row" layout-wrap>
+    </div>
+    <div layout-gt-sm="row" layout-wrap>
+      <md-switch aria-label="Repeat Every Day" ng-model="vm.teste.repeat">
+        Repeat Every Day
+      </md-switch>
+    </div>
+    <div layout-gt-sm="row" layout-wrap>
+      <md-radio-group>
+        <md-radio-button ng-repeat="repeatCompanion in vm.repeatCompanions" ng-value="vm.repeatCompanions[repeatCompanion]">
+          {{vm.repeatCompanions[repeatCompanion]}}
+        </md-radio-button>
+      </md-radio-group>
     </div>
     <div layout="row" layout-align="end center">
       <md-button type="button" class="md-raised" go-back-btn>
