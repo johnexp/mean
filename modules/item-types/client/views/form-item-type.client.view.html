@@ -132,11 +132,14 @@
       </md-switch>
     </div>
     <div layout-gt-sm="row" layout-wrap>
-      <md-radio-group>
-        <md-radio-button ng-repeat="repeatCompanion in vm.repeatCompanions" ng-value="vm.repeatCompanions[repeatCompanion]">
-          {{vm.repeatCompanions[repeatCompanion]}}
-        </md-radio-button>
-      </md-radio-group>
+      <div layout="column">
+        <p>Repeat Companions</p>
+        <md-radio-group ng-disabled="true">
+          <md-radio-button ng-repeat="repeatCompanion in vm.repeatCompanions" ng-value="repeatCompanion">
+            {{repeatCompanion}}
+          </md-radio-button>
+        </md-radio-group>
+      </div>
     </div>
     <div layout="row" layout-align="end center">
       <md-button type="button" class="md-raised" go-back-btn>

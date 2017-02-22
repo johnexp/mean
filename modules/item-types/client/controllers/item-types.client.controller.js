@@ -30,6 +30,7 @@
     vm.clearSearchTerm = function() { // ||
       vm.searchTerm = '';
     };
+    vm.repeatCompanions = ['Teste 1', 'Teste 2'];
 
     vm.loadVegetables = function() {
       return $timeout(function() {
