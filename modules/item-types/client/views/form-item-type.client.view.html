@@ -4,7 +4,7 @@
     <md-divider></md-divider>
   </div>
   <form name="vm.form.itemTypeForm" layout="column" ng-submit="vm.save(vm.form.itemTypeForm.$valid)" novalidate>
-    <div layout-gt-sm="row" layout-wrap>
+    <div layout-gt-sm="row" layout="column" layout-wrap>
       <md-input-container flex>
         <label translate>Name</label>
         <md-icon md-font-set="material-icons">person</md-icon>
@@ -13,23 +13,23 @@
           <p ng-message="required" translate>Item type name is required.</p>
         </div>
       </md-input-container>
-      <div layout="row" layout-wrap flex="100">
-        <p class="md-subhead" flex="100"><md-icon md-font-set="material-icons">person</md-icon> Equip</p>
-        <div flex="25">
+    </div>
+    <div layout="row" layout-wrap flex="100">
+      <p class="md-subhead" flex="100"><md-icon md-font-set="material-icons">person</md-icon> Equip</p>
+      <div flex="25">
         <md-checkbox ng-model="vm.itemType.canBeEquiped">
           <span translate>Can Be Equiped</span>
         </md-checkbox>
-        </div>
-        <div flex="25">
+      </div>
+      <div flex="25">
         <md-checkbox ng-model="vm.itemType.canBeEquiped">
           <span translate>Can Be Equiped 2</span>
         </md-checkbox>
-        </div>
-        <div flex="25">
-          <md-checkbox ng-model="vm.itemType.canBeEquiped">
-            <span translate>Can Be Equiped 2</span>
-          </md-checkbox>
-        </div>
+      </div>
+      <div flex="25">
+        <md-checkbox ng-model="vm.itemType.canBeEquiped">
+          <span translate>Can Be Equiped 2</span>
+        </md-checkbox>
       </div>
     </div>
     <div layout-gt-sm="row" layout-wrap>
@@ -56,7 +56,7 @@
         </md-select>
       </md-input-container>
     </div>
-    <div layout-gt-sm="row" layout-wrap>
+    <div layout-gt-sm="row" layout="column" layout-wrap>
       <md-input-container flex>
         <label for="drink" translate>Drink</label>
         <input name="drink" type="text" ng-model="vm.teste.drink" id="drink" pattern="/(\d{2}) \d{5}-\d{4}/" required>
@@ -70,17 +70,6 @@
         <input name="drink2" type="text" ng-model="vm.teste.drink2" id="drink2" pattern="/(\d{2}) \d{5}-\d{4}/">
         <div ng-messages="vm.form.testeForm.drink2.$error">
           <p ng-message="pattern" translate>This is not a valid phone number 2!</p>
-        </div>
-      </md-input-container>
-    </div>
-    <div layout-gt-sm="row" layout-wrap>
-      <md-input-container flex>
-        <label for="ammount" translate>Ammount</label>
-        <input name="ammount" type="number" ng-model="vm.teste.ammount" id="ammount" min="5" max="100" required>
-        <div ng-messages="vm.form.testeForm.ammount.$error">
-          <p ng-message="min" translate>Too few</p>
-          <p ng-message="max" translate>Too much</p>
-          <p ng-message="required" translate>An?</p>
         </div>
       </md-input-container>
     </div>
@@ -141,7 +130,25 @@
         </md-radio-group>
       </div>
     </div>
-    <div layout="row" layout-align="end center">
+	  <div layout-gt-sm="row" layout-wrap>
+		  <md-input-container flex>
+			  <label for="drink" translate>Drink</label>
+			  <input name="drink" type="text" ng-model="vm.teste.drink" id="drink" pattern="/(\d{2}) \d{5}-\d{4}/">
+		  </md-input-container>
+	  </div>
+	  <div layout-wrap class="md-block">
+		  <label for="ammount">Ammount</label>
+		  <md-slider-container>
+			  <md-slider flex ng-model="vm.teste.ammount" name="ammount" aria-label="Ammount" min="5" max="100" required></md-slider>
+			  <md-input-container>
+				  <input flex type="number" ng-model="vm.teste.ammount" name="ammount" id="ammount" aria-label="Ammount" aria-controls="ammount" min="5" max="100" required>
+			  </md-input-container>
+		  </md-slider-container>
+	  </div>
+	  <div layout-gt-sm="row" layout-wrap>
+      <md-chips flex ng-model="vm.itemType.name" name="name" md-enable-chip-edit="true" placeholder="Chips" md-removable="true" required></md-chips>
+	  </div>
+	  <div layout="row" layout-align="end center">
       <md-button type="button" class="md-raised" go-back-btn>
         <md-icon md-font-set="material-icons">cancel</md-icon>
         {{'Cancel' | translate}}

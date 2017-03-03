@@ -45,6 +45,9 @@ var ItemTypeSchema = new Schema({
   active: {
     type: Boolean,
     default: true
+  },
+  teste: {
+    type: [String]
   }
 });
 

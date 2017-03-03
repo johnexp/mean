@@ -31,6 +31,7 @@
       vm.searchTerm = '';
     };
     vm.repeatCompanions = ['Teste 1', 'Teste 2'];
+    vm.itemType.name = vm.itemType.name || [];
 
     vm.loadVegetables = function() {
       return $timeout(function() {
