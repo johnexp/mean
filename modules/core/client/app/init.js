@@ -11,7 +11,8 @@
     .config(bootstrapConfig)
     .config(materialDesignConfig)
     .config(customToastConfig)
-    .config(blockUIConfig);
+    .config(blockUIConfig)
+    .config(mdDateLocaleProvider);
 
   bootstrapConfig.$inject = ['$compileProvider', '$locationProvider', '$httpProvider', '$logProvider'];
 
@@ -139,8 +140,7 @@
   function blockUIConfig(blockUIConfig) {
     blockUIConfig.template = '<div class=\"block-ui-overlay\"></div><div class=\"block-ui-message-container\" aria-live=\"assertive\" aria-atomic=\"true\"><div layout="row" layout-sm="column" layout-align="space-around"><md-progress-circular md-mode="indeterminate"></md-progress-circular></div></div>';
     blockUIConfig.requestFilter = function(config) {
-      // If the request starts with '/api/' ...
-      if (config.url.match(/api/)) {
+      if (config.url.match(/\/api/g)) {
         return true;
       }
     };
@@ -172,4 +172,19 @@
       });
     });
   }
+
+  mdDateLocaleProvider.$inject = ['$mdDateLocaleProvider'];
+
+  function mdDateLocaleProvider($mdDateLocaleProvider) {
+    $mdDateLocaleProvider.parseDate = function(dateString) {
+      var m = moment(dateString, 'DD/MM/YYYY', true);
+      return m.isValid() ? m.toDate() : new Date(NaN);
+    };
+
+    $mdDateLocaleProvider.formatDate = function(date) {
+      var m = moment(date);
+      return m.isValid() ? m.format('DD/MM/YYYY') : '';
+    };
+  }
+
 }(ApplicationConfiguration));

@@ -65,6 +65,7 @@
   "inactivate_item": "Mudar Estado de Ativação",
   "Inactivate": "Inativar",
   "Activate": "Ativar",
+  "Filter": "Filtrar",
   "Item successfully inactivated": "Registro inativado com sucesso!",
   "Item successfully deleted": "Registro removido com sucesso!",
   "Some fields were not filled correctly": "Alguns campos não foram corretamente preenchidos",

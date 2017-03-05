@@ -38,7 +38,7 @@
     .config(['$translateProvider', '$translatePartialLoaderProvider', function ($translateProvider, $translatePartialLoaderProvider) {
       $translatePartialLoaderProvider.addPart('core');
       $translateProvider.useLoader('$translatePartialLoader', {
-        urlTemplate: '/modules/{part}/client/i18n/{lang}.json'
+        urlTemplate: '/modules/{part}/client/i18n/{part}.{lang}.json'
       });
 
       // Definimos o idioma padrão
