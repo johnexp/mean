@@ -14,6 +14,9 @@
     .config(blockUIConfig)
     .config(mdDateLocaleProvider);
 
+  // Then define the init function for starting up the application
+  angular.element(document).ready(init);
+
   bootstrapConfig.$inject = ['$compileProvider', '$locationProvider', '$httpProvider', '$logProvider'];
 
   function bootstrapConfig($compileProvider, $locationProvider, $httpProvider, $logProvider) {
@@ -31,10 +34,6 @@
   }
 
   materialDesignConfig.$inject = ['$mdThemingProvider'];
-
-  // Then define the init function for starting up the application
-  angular.element(document).ready(init);
-
 
   function materialDesignConfig($mdThemingProvider) {
     var customPrimary = {
@@ -176,14 +175,27 @@
   mdDateLocaleProvider.$inject = ['$mdDateLocaleProvider'];
 
   function mdDateLocaleProvider($mdDateLocaleProvider) {
-    $mdDateLocaleProvider.parseDate = function(dateString) {
-      var m = moment(dateString, 'DD/MM/YYYY', true);
-      return m.isValid() ? m.toDate() : new Date(NaN);
+    var myShortMonths = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+    $mdDateLocaleProvider.shortMonths = myShortMonths;
+    $mdDateLocaleProvider.shortDays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
+    $mdDateLocaleProvider.firstDayOfWeek = 1;
+    $mdDateLocaleProvider.monthHeaderFormatter = function(date) {
+      return myShortMonths[date.getMonth()] + ' ' + date.getFullYear();
+    };
+    $mdDateLocaleProvider.weekNumberFormatter = function(weekNumber) {
+      return 'Semana ' + weekNumber;
+    };
+    $mdDateLocaleProvider.formatDate = function(date) {
+      return date ? moment(date).format('DD/MM/YYYY') : '';
     };
 
-    $mdDateLocaleProvider.formatDate = function(date) {
-      var m = moment(date);
-      return m.isValid() ? m.format('DD/MM/YYYY') : '';
+    $mdDateLocaleProvider.parseDate = function(dateString) {
+      if (dateString != '') {
+        var m = moment(dateString, 'DD/MM/YYYY', true);
+        return m.isValid() ? m.toDate() : new Date(NaN);
+      } else {
+        return dateString;
+      }
     };
   }
 
